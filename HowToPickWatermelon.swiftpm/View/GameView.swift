@@ -1,6 +1,6 @@
 //
 //  GameView.swift
-//  
+//
 //
 //  Created by 김태현 on 2/21/24.
 //
@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct GameView: View {
+    @Binding var page: Page
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Game")
     }
 }
 
 #Preview {
-    GameView()
+    GameView(page: .constant(.game))
 }

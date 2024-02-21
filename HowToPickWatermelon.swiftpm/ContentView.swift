@@ -7,19 +7,13 @@ struct ContentView: View {
         VStack {
             switch page {
             case .home:
-                HomeView()
-            case .tutorialStripe:
-                TutorialView()
-            case .tutorialSound:
-                TutorialView()
-            case .tutorialStem:
-                TutorialView()
-            case .tutorialSpot:
-                TutorialView()
+                HomeView(page: $page)
+            case .tutorialStripe, .tutorialSound, .tutorialStem, .tutorialSpot:
+                TutorialView(page: $page)
             case .game:
-                GameView()
+                GameView(page: $page)
             case .score:
-                ScoreView()
+                ScoreView(page: $page)
             }
         }
     }

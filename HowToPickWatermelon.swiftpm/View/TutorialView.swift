@@ -1,6 +1,6 @@
 //
 //  TutorialView.swift
-//  
+//
 //
 //  Created by 김태현 on 2/21/24.
 //
@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct TutorialView: View {
+    @Binding var page: Page
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        let content = page.tutorialContent
+        
+        VStack {
+            Text("\(content.title)")
+        }
     }
 }
 
 #Preview {
-    TutorialView()
+    TutorialView(page: .constant(.tutorialStripe))
 }

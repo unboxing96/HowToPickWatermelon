@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ScoreView: View {
+    @Binding var page: Page
+    
     var body: some View {
         Text("ScoreView")
     }
 }
 
 #Preview {
-    ScoreView()
+    ScoreView(page: .constant(.score))
 }
