@@ -12,6 +12,7 @@ struct TutorialView: View {
     @Binding var page: Page
     @State private var currentIndex: Int = 0
     @State private var watermelonViews: [WatermelonSceneView] = []
+    @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
     
     var body: some View {
         let content = page.tutorialContent
@@ -50,16 +51,23 @@ struct TutorialView: View {
             }
         }
         .onAppear {
+            print("onAppear")
             setupWatermelonViews(for: page)
-            print("page in onAppear: \(page)")
         }
         .onChange(of: page) { newValue in
-            setupWatermelonViews(for: newValue)
-            print("page in onChange: \(page)")
+            withAnimation {
+                viewUpdateKey = UUID()
+                currentIndex = 0
+                setupWatermelonViews(for: newValue)
+            }
         }
+        .id(viewUpdateKey) // 이 key를 사용하여 뷰 갱신 강제
     }
     
     private func setupWatermelonViews(for page: Page) {
+        
+        print("setupWatermelonViews !!!!: \(page)")
+        
         switch page {
         case .tutorialStripe:
             watermelonViews = [
@@ -88,7 +96,7 @@ struct TutorialView: View {
         case .tutorialStem:
             watermelonViews = [
                 WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp0",
+                    imgName: "watermelonTmp2",
                     taste: .stemLarge)),
                 WatermelonSceneView(watermelon: Watermelon(
                     imgName: "watermelonTmp2",

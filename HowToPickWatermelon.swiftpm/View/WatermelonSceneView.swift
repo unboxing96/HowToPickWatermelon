@@ -10,8 +10,9 @@ import SceneKit
 import UIKit
 import AVFoundation
 
-struct WatermelonSceneView: UIViewRepresentable {
+struct WatermelonSceneView: UIViewRepresentable, Identifiable {
     let watermelon: Watermelon
+    let id = UUID()
     
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
