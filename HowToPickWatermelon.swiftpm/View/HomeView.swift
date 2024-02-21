@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SceneKit
 
 struct HomeView: View {
     @Binding var page: Page
@@ -14,7 +15,10 @@ struct HomeView: View {
         VStack {
             Text("HomeView")
             
-            WatermelonSceneView()
+            WatermelonSceneView(watermelon: Watermelon(
+                imgName: "watermelonTmp0",
+                taste: .stemSmall
+            ))
                 .frame(width: 330, height: 500)
             
             Button {

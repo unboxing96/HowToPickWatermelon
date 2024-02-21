@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum Taste: String {
-    case stripeNarrow
+enum Taste: Int {
+    case stripeNarrow = 0
     case stripeWide
     case stemSmall
     case stemLarge

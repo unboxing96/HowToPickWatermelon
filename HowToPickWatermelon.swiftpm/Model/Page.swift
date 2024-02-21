@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum Page: String {
-    case home
+enum Page: Int {
+    case home = 0
     case tutorialStripe
     case tutorialSound
     case tutorialStem
@@ -46,5 +46,12 @@ extension Page {
                 taste: [.stripeNarrow, .stripeWide]
             )
         }
+    }
+}
+
+extension Page {
+    func navigateToNextPage(with page: Page) -> Page {
+        let nextRawValue = page.rawValue + 1
+        return Page(rawValue: nextRawValue) ?? Page.home
     }
 }

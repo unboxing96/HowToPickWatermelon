@@ -11,6 +11,4 @@ import SceneKit
 struct Watermelon {
     let imgName: String
     let taste: Taste
-    var scale: SCNVector3
-    var position: SCNVector3
 }

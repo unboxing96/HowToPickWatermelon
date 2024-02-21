@@ -11,6 +11,7 @@ import UIKit
 import AVFoundation
 
 struct WatermelonSceneView: UIViewRepresentable {
+    let watermelon: Watermelon
     
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
@@ -29,11 +30,11 @@ struct WatermelonSceneView: UIViewRepresentable {
         
         let watermelonGeometry = SCNSphere(radius: 1.0)
         let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "watermelonTmp0")
+        material.diffuse.contents = UIImage(named: watermelon.imgName)
         watermelonGeometry.materials = [material]
         
         let watermelonNode = SCNNode(geometry: watermelonGeometry)
-        watermelonNode.scale = SCNVector3(0.5, 0.5, 0.5) // initial scale
+        watermelonNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5) // initial scale
         scene.rootNode.addChildNode(watermelonNode)
         
         // 커스텀 카메라 노드 추가
@@ -79,15 +80,12 @@ struct WatermelonSceneView: UIViewRepresentable {
                 initialScale = CGFloat(node.scale.x)
                 
             case .changed:
+                SCNTransaction.animationDuration = 0.5
                 let scaleAdjustment = min(max(0, gesture.scale), 0.4)
                 let newScale = Float(initialScale * scaleAdjustment)
                 node.scale = SCNVector3(x: newScale, y: newScale, z: newScale)
                   
             case .ended:
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                SCNTransaction.commit()
-                
                 if gesture.scale > 1 { // 줌 인
                     node.scale = SCNVector3(x: 1, y: 1, z: 1) // 확대된 상태
                 } else { // 줌 아웃
