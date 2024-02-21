@@ -9,7 +9,7 @@ import Foundation
 
 enum Page: String {
     case home
-    case tutorialPattern
+    case tutorialStripe
     case tutorialSound
     case tutorialStem
     case tutorialSpot
