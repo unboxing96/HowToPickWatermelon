@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "Firefly Texture image of watermelon skin. vertical stripe only. 29939.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

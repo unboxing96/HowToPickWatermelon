@@ -11,4 +11,5 @@ import SceneKit
 struct Watermelon {
     let imgName: String
     let taste: Taste
+    let interaction: Bool = false
 }

@@ -11,7 +11,16 @@ struct GameView: View {
     @Binding var page: Page
     
     var body: some View {
-        Text("Game")
+        VStack {
+            Text("Game")
+            
+            
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                page = .score
+            }
+        }
     }
 }
 

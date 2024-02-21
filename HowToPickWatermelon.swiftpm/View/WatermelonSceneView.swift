@@ -19,7 +19,9 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         sceneView.scene = createWatermelonScene()
         sceneView.allowsCameraControl = false // camera control disabled
         
-        addGestureRecognizers(to: sceneView, context: context)
+//        if watermelon.interaction == true {
+            addGestureRecognizers(to: sceneView, context: context)
+//        }
         return sceneView
     }
     
@@ -35,7 +37,9 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         watermelonGeometry.materials = [material]
         
         let watermelonNode = SCNNode(geometry: watermelonGeometry)
-        watermelonNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5) // initial scale
+        watermelonNode.scale = SCNVector3(x: 1.0, y: 1.0, z: 1.0) // initial scale
+        watermelonNode.eulerAngles.x += 0.6
+        watermelonNode.eulerAngles.y += 0.6
         scene.rootNode.addChildNode(watermelonNode)
         
         // 커스텀 카메라 노드 추가

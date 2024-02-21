@@ -11,7 +11,21 @@ struct ScoreView: View {
     @Binding var page: Page
     
     var body: some View {
-        Text("ScoreView")
+        VStack {
+            Text("ScoreView")
+            
+            Button {
+                page = .game
+            } label: {
+                Text("Retry")
+            }
+            
+            Button {
+                page = .home
+            } label: {
+                Text("Go to Home")
+            }
+        }
     }
 }
 
