@@ -14,6 +14,9 @@ struct HomeView: View {
         VStack {
             Text("HomeView")
             
+            WatermelonSceneView()
+                .frame(width: 330, height: 500)
+            
             Button {
                 page = .tutorialStripe
             } label: {
