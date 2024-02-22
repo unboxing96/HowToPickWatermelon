@@ -13,3 +13,14 @@ struct Watermelon {
     let taste: Taste
     let interaction: Bool = false
 }
+
+extension Watermelon {
+    func isDelicious() -> Bool {
+        switch self.taste {
+        case .stripeNarrow, .soundClear, .stemSmall, .spotOrange:
+            return true
+        default:
+            return false
+        }
+    }
+}

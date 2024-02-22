@@ -14,6 +14,7 @@ struct TutorialView: View {
     @State private var watermelonViews: [WatermelonSceneView] = []
     @State private var selectedWatermelonIndex: Int?
     @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
+    @State private var answer: Correct = .undefined
     private let gridItems = [
         GridItem(.flexible(minimum: 0), spacing: 0),
         GridItem(.flexible(minimum: 0), spacing: 0)]
@@ -22,7 +23,7 @@ struct TutorialView: View {
     var body: some View {
         let content = page.tutorialContent
         
-        VStack {
+        VStack(spacing: 0) {
             Text("\(content.title)")
             
 //            ZStack {
@@ -32,43 +33,40 @@ struct TutorialView: View {
 //                        .animation(.easeInOut(duration: 1), value: currentIndex)
 //                }
 //            }
-            
-            LazyVGrid(columns: gridItems, spacing: 10) {
-                ForEach(0..<watermelonViews.count, id: \.self) { index in
-                    watermelonViews[index]
-                        .frame(width: 160, height: 160)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10) // 테두리 모양 정의
-                                .stroke(selectedWatermelonIndex == index ? Color.blue : Color.clear, lineWidth: 3) // 선택된 아이템에만 테두리 적용
-                        )
-                        .onTapGesture {
-                            selectedWatermelonIndex = index // 사용자가 탭할 때 선택된 인덱스 업데이트
-                        }
-                }
-            }
-            .frame(width: 360, height: 500)
-
-            
-            HStack {
-                Button("Prev") {
-                    withAnimation {
-                        currentIndex = (currentIndex - 1 + watermelonViews.count) % watermelonViews.count
-                        print("currentIndex: \(currentIndex)")
-                    }
-                }
+            ZStack {
+                WatermelonBackgroundView()
                 
-                Button("Next") {
-                    withAnimation {
-                        currentIndex = (currentIndex + 1) % watermelonViews.count
-                        print("currentIndex: \(currentIndex)")
+                VStack(spacing: 0) {
+                    FeedbackButtonView(answer: $answer)
+                        .padding(.bottom, 20)
+                    
+                    LazyVGrid(columns: gridItems, spacing: 10) {
+                        ForEach(0..<watermelonViews.count, id: \.self) { index in
+                            watermelonViews[index]
+                                .frame(width: 160, height: 160)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10) // 테두리 모양 정의
+                                        .stroke(selectedWatermelonIndex == index ? Color.blue : Color.clear, lineWidth: 3) // 선택된 아이템에만 테두리 적용
+                                )
+                                .onTapGesture {
+                                    selectedWatermelonIndex = index // 사용자가 탭할 때 선택된 인덱스 업데이트
+                                }
+                        }
                     }
                 }
             }
-            
+
             Button {
-                page = page.navigateToNextPage(with: page)
+                if answer == .correct {
+                    page = page.navigateToNextPage(with: page)
+                    answer = .undefined
+                } else {
+                    answer =
+                    watermelonViews[selectedWatermelonIndex!]
+                        .watermelon.isDelicious() == true ? .correct : .wrong
+                }
             } label: {
-                Text("Move to Next")
+                AnswerButtonView(answer: $answer)
             }
         }
         .onAppear {
