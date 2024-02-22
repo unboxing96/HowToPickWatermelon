@@ -14,8 +14,8 @@ struct FeedbackButtonView: View {
         Rectangle()
             .foregroundStyle(answer == .correct ? .green : answer == .wrong ? .red : .clear)
             .opacity(0.5)
-            .clipShape(.rect(cornerRadius: 10))
-            .frame(width: 340, height: 70)
+            .clipShape(.rect(cornerRadius: 5))
+            .frame(height: 70)
     }
 }
 

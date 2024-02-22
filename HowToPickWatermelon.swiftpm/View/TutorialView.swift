@@ -15,6 +15,7 @@ struct TutorialView: View {
     @State private var selectedWatermelonIndex: Int?
     @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
     @State private var answer: Correct = .undefined
+    @State private var feedbackButtonViewWidth: CGFloat = 0.0
     private let gridItems = [
         GridItem(.flexible(minimum: 0), spacing: 0),
         GridItem(.flexible(minimum: 0), spacing: 0)]
@@ -26,19 +27,24 @@ struct TutorialView: View {
         VStack(spacing: 0) {
             Text("\(content.title)")
             
-//            ZStack {
-//                ForEach(0..<watermelonViews.count, id: \.self) { index in
-//                    watermelonViews[index]
-//                        .offset(x: self.offsetForIndex(index), y: 0)
-//                        .animation(.easeInOut(duration: 1), value: currentIndex)
-//                }
-//            }
+            //            ZStack {
+            //                ForEach(0..<watermelonViews.count, id: \.self) { index in
+            //                    watermelonViews[index]
+            //                        .offset(x: self.offsetForIndex(index), y: 0)
+            //                        .animation(.easeInOut(duration: 1), value: currentIndex)
+            //                }
+            //            }
+            
             ZStack {
                 WatermelonBackgroundView()
                 
-                VStack(spacing: 0) {
+                
+                VStack(alignment: .leading, spacing: 0) {
                     FeedbackButtonView(answer: $answer)
+                        .frame(width: feedbackButtonViewWidth)
                         .padding(.bottom, 20)
+                        .padding(.horizontal, 360 * 0.03)
+                        .border(.orange)
                     
                     LazyVGrid(columns: gridItems, spacing: 10) {
                         ForEach(0..<watermelonViews.count, id: \.self) { index in
@@ -53,17 +59,23 @@ struct TutorialView: View {
                                 }
                         }
                     }
+                    .padding(.horizontal, 360 * 0.01)
+                    .border(.orange)
                 }
+                .frame(width: 360)
             }
 
             Button {
                 if answer == .correct {
                     page = page.navigateToNextPage(with: page)
-                    answer = .undefined
                 } else {
                     answer =
                     watermelonViews[selectedWatermelonIndex!]
                         .watermelon.isDelicious() == true ? .correct : .wrong
+                    feedbackButtonViewWidth = 0.0
+                    withAnimation(.snappy(duration: 0.4, extraBounce: 0.1)) {
+                        feedbackButtonViewWidth = .infinity
+                    }
                 }
             } label: {
                 AnswerButtonView(answer: $answer)
@@ -78,6 +90,9 @@ struct TutorialView: View {
             withAnimation {
                 viewUpdateKey = UUID()
                 currentIndex = 0
+                answer = .undefined
+                selectedWatermelonIndex = nil
+                feedbackButtonViewWidth = 0.0
                 setupWatermelonViews(for: newValue)
             }
         }
