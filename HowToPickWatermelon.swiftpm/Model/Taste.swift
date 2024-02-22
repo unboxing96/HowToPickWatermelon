@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Taste: Int {
+enum Taste: Int, CaseIterable {
     case stripeNarrow = 0
     case stripeWide
     case stemSmall

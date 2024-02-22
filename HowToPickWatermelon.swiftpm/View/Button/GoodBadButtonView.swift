@@ -1,27 +1,27 @@
 //
-//  AnswerButtonView.swift
-//  
+//  GoodBadButtonView.swift
+//
 //
 //  Created by 김태현 on 2/22/24.
 //
 
 import SwiftUI
 
-struct AnswerButtonView: View {
-    @Binding var answer: Answer
+struct GoodBadButtonView: View {
+    let text: String
     
     var body: some View {
         Rectangle()
             .foregroundStyle(.gray)
             .opacity(0.5)
             .clipShape(.rect(cornerRadius: 10))
-            .frame(width: 360, height: 70)
+            .frame(width: 155, height: 70)
             .overlay {
-                answer == .correct ? Text("Move To Next") : Text("Confirm The Answer")
+                Text(text)
             }
     }
 }
 
 #Preview {
-    AnswerButtonView(answer: .constant(.undefined))
+    GoodBadButtonView(text: "Good")
 }

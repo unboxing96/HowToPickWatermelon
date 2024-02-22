@@ -14,7 +14,7 @@ struct TutorialView: View {
     @State private var watermelonViews: [WatermelonSceneView] = []
     @State private var selectedWatermelonIndex: Int?
     @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
-    @State private var answer: Correct = .undefined
+    @State private var answer: Answer = .undefined
     @State private var feedbackButtonViewWidth: CGFloat = 0.0
     private let gridItems = [
         GridItem(.flexible(minimum: 0), spacing: 0),
@@ -70,7 +70,7 @@ struct TutorialView: View {
                     page = page.navigateToNextPage(with: page)
                 } else {
                     answer =
-                    watermelonViews[selectedWatermelonIndex!]
+                    watermelonViews[selectedWatermelonIndex ?? 0]
                         .watermelon.isDelicious() == true ? .correct : .wrong
                     feedbackButtonViewWidth = 0.0
                     withAnimation(.snappy(duration: 0.4, extraBounce: 0.1)) {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FeedbackButtonView: View {
-    @Binding var answer: Correct
+    @Binding var answer: Answer
     
     var body: some View {
         Rectangle()
