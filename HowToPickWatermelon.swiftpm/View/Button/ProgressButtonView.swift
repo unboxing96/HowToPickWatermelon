@@ -9,40 +9,43 @@ import SwiftUI
 
 struct ProgressButtonView: View {
     @Binding var answer: Answer
-    @State private var loadingBarWidth: CGFloat = 360.0
+    @State private var progress: CGFloat = 1.0
     
     var body: some View {
         
-        switch answer {
-        case .wrong:
-            Rectangle()
-                .foregroundStyle(.gray)
-                .opacity(0.5)
-                .clipShape(.rect(cornerRadius: 10))
-                .frame(width: 360, height: 70)
-                .overlay {
-                    Rectangle()
-                        .foregroundStyle(.black)
-                        .clipShape(.rect(cornerRadius: 10))
-                        .frame(width: loadingBarWidth, height: 70)
-                        .onAppear {
-                            withAnimation(.linear(duration: 2)) {
-                                loadingBarWidth = 0.0
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                answer = .correct
-                            }
+        VStack(alignment: .leading, spacing: 0) {
+            switch answer {
+            case .wrong:
+                Rectangle()
+                    .foregroundStyle(.gray)
+                    .opacity(0.5)
+                    .clipShape(.rect(cornerRadius: 10))
+                    .frame(width: 360, height: 70)
+                    .overlay(
+                        GeometryReader { geometry in
+                            Rectangle() // 진행 상태를 나타내는 Rectangle
+                                .foregroundStyle(.black)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .frame(width: geometry.size.width * progress, height: 70)
+                                .animation(.linear(duration: 2), value: progress)
+                                .onAppear {
+                                    progress = 0 // 진행 상태를 0으로 설정하여 애니메이션 시작
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        answer = .correct
+                                    }
+                                }
                         }
-                }
-        default: // case: .correct
-            Rectangle()
-                .foregroundStyle(.gray)
-                .opacity(0.5)
-                .clipShape(.rect(cornerRadius: 10))
-                .frame(width: 360, height: 70)
-                .overlay {
-                    Text("Move To Next")
-                }
+                    )
+            default: // case: .correct
+                Rectangle()
+                    .foregroundStyle(.gray)
+                    .opacity(0.5)
+                    .clipShape(.rect(cornerRadius: 10))
+                    .frame(width: 360, height: 70)
+                    .overlay {
+                        Text("Move To Next")
+                    }
+            }
         }
     }
 }

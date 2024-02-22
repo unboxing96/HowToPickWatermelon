@@ -15,7 +15,7 @@ struct TutorialView: View {
     @State private var selectedWatermelonIndex: Int?
     @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
     @State private var answer: Answer = .undefined
-    @State private var feedbackButtonViewWidth: CGFloat = 0.0
+    @State private var feedbackViewWidth: CGFloat = 0.0
     private let gridItems = [
         GridItem(.flexible(minimum: 0), spacing: 0),
         GridItem(.flexible(minimum: 0), spacing: 0)]
@@ -25,14 +25,19 @@ struct TutorialView: View {
         let content = page.tutorialContent
         
         VStack(spacing: 0) {
-            Text("\(content.title)")
+            TopicView()
+                .overlay {
+                    Text(content.title)
+                }
+                .padding(.top, 30)
 
             ZStack {
                 WatermelonBackgroundView()
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    FeedbackButtonView(answer: $answer)
-                        .frame(width: feedbackButtonViewWidth)
+                    FeedbackView(answer: $answer)
+                        .frame(width: feedbackViewWidth)
+                        .padding(.vertical)
                         .border(.orange)
                     
                     LazyVGrid(columns: gridItems, spacing: 10) {
@@ -48,11 +53,14 @@ struct TutorialView: View {
                                 }
                         }
                     }
+                    .padding(.bottom, 20)
                 }
                 .padding(.horizontal)
                 .border(.orange)
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical, 45)
+            .border(.orange)
 
             Button {
                 if answer == .correct {
@@ -61,13 +69,14 @@ struct TutorialView: View {
                     answer =
                     watermelonViews[selectedWatermelonIndex ?? 0]
                         .watermelon.isDelicious() == true ? .correct : .wrong
-                    feedbackButtonViewWidth = 0.0
+                    feedbackViewWidth = 0.0
                     withAnimation(.snappy(duration: 0.4, extraBounce: 0.1)) {
-                        feedbackButtonViewWidth = .infinity
+                        feedbackViewWidth = .infinity
                     }
                 }
             } label: {
                 AnswerButtonView(answer: $answer)
+                    .padding(.vertical, 30)
             }
         }
         .onAppear {
@@ -81,7 +90,7 @@ struct TutorialView: View {
                 currentIndex = 0
                 answer = .undefined
                 selectedWatermelonIndex = nil
-                feedbackButtonViewWidth = 0.0
+                feedbackViewWidth = 0.0
                 setupWatermelonViews(for: newValue)
             }
         }

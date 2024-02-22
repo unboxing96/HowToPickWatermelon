@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var page: Page = .home
+    @State private var score: Int = 0
     
     var body: some View {
         VStack {
@@ -11,9 +12,9 @@ struct ContentView: View {
             case .tutorialStripe, .tutorialSound, .tutorialStem, .tutorialSpot:
                 TutorialView(page: $page)
             case .game:
-                GameView(page: $page)
+                GameView(page: $page, score: $score)
             case .score:
-                ScoreView(page: $page)
+                ScoreView(page: $page, score: $score)
             }
         }
     }

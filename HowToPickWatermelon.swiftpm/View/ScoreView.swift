@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ScoreView: View {
     @Binding var page: Page
+    @Binding var score: Int
     
     var body: some View {
         VStack {
-            Text("ScoreView")
+            Text("Score: \(score)")
             
             Button {
                 page = .game
@@ -30,5 +31,5 @@ struct ScoreView: View {
 }
 
 #Preview {
-    ScoreView(page: .constant(.score))
+    ScoreView(page: .constant(.score), score: .constant(0))
 }

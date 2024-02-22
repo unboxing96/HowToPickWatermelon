@@ -1,5 +1,5 @@
 //
-//  FeedbackButtonView.swift
+//  FeedbackView.swift
 //
 //
 //  Created by 김태현 on 2/22/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FeedbackButtonView: View {
+struct FeedbackView: View {
     @Binding var answer: Answer
     
     var body: some View {
@@ -20,5 +20,5 @@ struct FeedbackButtonView: View {
 }
 
 #Preview {
-    FeedbackButtonView(answer: .constant(.undefined))
+    FeedbackView(answer: .constant(.undefined))
 }

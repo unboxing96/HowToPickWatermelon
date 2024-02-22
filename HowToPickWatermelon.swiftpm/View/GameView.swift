@@ -10,23 +10,25 @@ import SceneKit
 
 struct GameView: View {
     @Binding var page: Page
+    @Binding var score: Int
     @State private var currentIndex: Int = 0
     @State private var watermelonGameViews: [WatermelonSceneView] = []
     @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
     @State private var answer: Answer = .undefined
-    @State private var feedbackButtonViewWidth: CGFloat = 0.0
+    @State private var feedbackViewWidth: CGFloat = 0.0
     @State private var progressValue: Double = 1.0
     
     var body: some View {
         VStack(spacing: 0) {
             TimerView()
+                .padding(.top, 20)
             
             ZStack {
                 WatermelonBackgroundView()
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    FeedbackButtonView(answer: $answer)
-                        .frame(width: feedbackButtonViewWidth)
+                    FeedbackView(answer: $answer)
+                        .frame(width: feedbackViewWidth)
                         .padding(.top, 20)
                         .border(.orange)
                     
@@ -50,12 +52,15 @@ struct GameView: View {
             switch answer {
             case .correct:
                 Button {
+                    score += 1
                     moveToNextView()
                 } label: {
                     ProgressButtonView(answer: $answer)
+                        .padding(.bottom, 30)
                 }
             case .wrong:
                 ProgressButtonView(answer: $answer)
+                    .padding(.bottom, 30)
             default: // .undefined
                 HStack(spacing: 20) {
                     Button {
@@ -74,11 +79,12 @@ struct GameView: View {
                     }
                     .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
                 }
+                .padding(.bottom, 30)
             }
         }
         .onAppear {
             setupWatermelonGameViews(for: page)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 120.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                 page = .score
             }
         }
@@ -86,7 +92,7 @@ struct GameView: View {
             withAnimation {
                 viewUpdateKey = UUID()
                 answer = .undefined
-                feedbackButtonViewWidth = 0.0
+                feedbackViewWidth = 0.0
             }
         }
         .id(viewUpdateKey) // 이 key를 사용하여 뷰 갱신 강제
@@ -128,13 +134,13 @@ struct GameView: View {
     }
     
     private func generateFeedback() {
-        feedbackButtonViewWidth = 0.0
+        feedbackViewWidth = 0.0
         withAnimation(.snappy(duration: 0.4, extraBounce: 0.1)) {
-            feedbackButtonViewWidth = .infinity
+            feedbackViewWidth = .infinity
         }
     }
 }
 
 #Preview {
-    GameView(page: .constant(.tutorialStripe))
+    GameView(page: .constant(.tutorialStripe), score: .constant(0))
 }
