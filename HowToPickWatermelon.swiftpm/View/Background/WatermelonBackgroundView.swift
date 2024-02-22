@@ -13,7 +13,6 @@ struct WatermelonBackgroundView: View {
             .foregroundStyle(.gray)
             .opacity(0.3)
             .clipShape(.rect(cornerRadius: 5))
-            .frame(width: 360, height: 500)
     }
 }
 

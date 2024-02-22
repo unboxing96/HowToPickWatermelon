@@ -22,20 +22,29 @@ struct GameView: View {
             TimerView()
             
             ZStack {
-                FeedbackButtonView(answer: $answer)
-                    .frame(width: feedbackButtonViewWidth)
-                    .padding(.bottom, 20)
-                    .padding(.horizontal, 360 * 0.03)
-                    .border(.orange)
+                WatermelonBackgroundView()
                 
-                ForEach(0..<watermelonGameViews.count, id: \.self) { index in
-                    watermelonGameViews[index]
-                        .offset(x: offsetForIndex(index), y: 0)
-                        .animation(.easeInOut(duration: 1), value: currentIndex)
-                        .frame(width: 300, height: 400)
+                VStack(alignment: .leading, spacing: 0) {
+                    FeedbackButtonView(answer: $answer)
+                        .frame(width: feedbackButtonViewWidth)
+                        .padding(.top, 20)
+                        .border(.orange)
+                    
+                    ZStack {
+                        ForEach(0..<watermelonGameViews.count, id: \.self) { index in
+                            watermelonGameViews[index]
+                                .offset(x: offsetForIndex(index), y: 0)
+                                .animation(.easeInOut(duration: 1), value: currentIndex)
+                                .padding(.top, 15)
+                                .padding(.bottom, 30)
+                                .border(.orange)
+                        }
+                    }
                 }
+                .padding(.horizontal)
+                .border(.orange)
             }
-            .background(WatermelonBackgroundView())
+            .padding(20)
             .animation(.easeInOut(duration: 1), value: currentIndex)
             
             switch answer {
@@ -69,7 +78,7 @@ struct GameView: View {
         }
         .onAppear {
             setupWatermelonGameViews(for: page)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 20.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 120.0) {
                 page = .score
             }
         }
@@ -121,7 +130,7 @@ struct GameView: View {
     private func generateFeedback() {
         feedbackButtonViewWidth = 0.0
         withAnimation(.snappy(duration: 0.4, extraBounce: 0.1)) {
-            feedbackButtonViewWidth = 340
+            feedbackButtonViewWidth = .infinity
         }
     }
 }

@@ -26,24 +26,13 @@ struct TutorialView: View {
         
         VStack(spacing: 0) {
             Text("\(content.title)")
-            
-            //            ZStack {
-            //                ForEach(0..<watermelonViews.count, id: \.self) { index in
-            //                    watermelonViews[index]
-            //                        .offset(x: self.offsetForIndex(index), y: 0)
-            //                        .animation(.easeInOut(duration: 1), value: currentIndex)
-            //                }
-            //            }
-            
+
             ZStack {
                 WatermelonBackgroundView()
-                
                 
                 VStack(alignment: .leading, spacing: 0) {
                     FeedbackButtonView(answer: $answer)
                         .frame(width: feedbackButtonViewWidth)
-                        .padding(.bottom, 20)
-                        .padding(.horizontal, 360 * 0.03)
                         .border(.orange)
                     
                     LazyVGrid(columns: gridItems, spacing: 10) {
@@ -59,11 +48,11 @@ struct TutorialView: View {
                                 }
                         }
                     }
-                    .padding(.horizontal, 360 * 0.01)
-                    .border(.orange)
                 }
-                .frame(width: 360)
+                .padding(.horizontal)
+                .border(.orange)
             }
+            .padding()
 
             Button {
                 if answer == .correct {
