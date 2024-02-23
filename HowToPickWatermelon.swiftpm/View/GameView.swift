@@ -17,6 +17,7 @@ struct GameView: View {
     @State private var answer: Answer = .undefined
     @State private var feedbackViewWidth: CGFloat = 0.0
     @State private var progressValue: Double = 1.0
+    @State private var hasOnAppearedBeenExecuted = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -83,9 +84,13 @@ struct GameView: View {
             }
         }
         .onAppear {
+            print("onAppear !!!!")
             setupWatermelonGameViews(for: page)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                page = .score
+            if !hasOnAppearedBeenExecuted {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 100.0) {
+                    page = .score
+                }
+                hasOnAppearedBeenExecuted = true
             }
         }
         .onChange(of: currentIndex) { newValue in
@@ -96,6 +101,12 @@ struct GameView: View {
             }
         }
         .id(viewUpdateKey) // 이 key를 사용하여 뷰 갱신 강제
+        .onDisappear {
+            print("onDiappear !!!!")
+            answer = .undefined
+            feedbackViewWidth = 0.0
+            hasOnAppearedBeenExecuted = false
+        }
     }
     
     private func setupWatermelonGameViews(for page: Page) {

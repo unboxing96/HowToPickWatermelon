@@ -16,12 +16,14 @@ struct ScoreView: View {
             Text("Score: \(score)")
             
             Button {
+                score = 0
                 page = .game
             } label: {
                 Text("Retry")
             }
             
             Button {
+                score = 0
                 page = .home
             } label: {
                 Text("Go to Home")

@@ -15,11 +15,11 @@ struct TutorialView: View {
     @State private var selectedWatermelonIndex: Int?
     @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
     @State private var answer: Answer = .undefined
-    @State private var feedbackViewWidth: CGFloat = 0.0
+    @State private var feedbackViewWidth: CGFloat = .infinity
     private let gridItems = [
         GridItem(.flexible(minimum: 0), spacing: 0),
         GridItem(.flexible(minimum: 0), spacing: 0)]
-
+    
     
     var body: some View {
         let content = page.tutorialContent
@@ -30,7 +30,7 @@ struct TutorialView: View {
                     Text(content.title)
                 }
                 .padding(.top, 30)
-
+            
             ZStack {
                 WatermelonBackgroundView()
                 
@@ -43,7 +43,8 @@ struct TutorialView: View {
                     LazyVGrid(columns: gridItems, spacing: 10) {
                         ForEach(0..<watermelonViews.count, id: \.self) { index in
                             watermelonViews[index]
-                                .frame(width: 160, height: 160)
+                                .frame(width: 158, height: 158)
+                                .clipShape(.rect(cornerRadius: 10))
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 10) // 테두리 모양 정의
                                         .stroke(selectedWatermelonIndex == index ? Color.blue : Color.clear, lineWidth: 3) // 선택된 아이템에만 테두리 적용
@@ -61,11 +62,14 @@ struct TutorialView: View {
             .padding(.horizontal)
             .padding(.vertical, 45)
             .border(.orange)
-
+            
             Button {
-                if answer == .correct {
-                    page = page.navigateToNextPage(with: page)
-                } else {
+                switch answer {
+                case .correct:
+                    withAnimation {
+                        page = page.navigateToNextPage(with: page)
+                    }
+                default: // .wrong
                     answer =
                     watermelonViews[selectedWatermelonIndex ?? 0]
                         .watermelon.isDelicious() == true ? .correct : .wrong
@@ -90,7 +94,6 @@ struct TutorialView: View {
                 currentIndex = 0
                 answer = .undefined
                 selectedWatermelonIndex = nil
-                feedbackViewWidth = 0.0
                 setupWatermelonViews(for: newValue)
             }
         }
@@ -164,7 +167,7 @@ struct TutorialView: View {
         let indexOffset = CGFloat(index) * viewWidth
         return indexOffset - currentIndexOffset
     }
-
+    
 }
 
 #Preview {

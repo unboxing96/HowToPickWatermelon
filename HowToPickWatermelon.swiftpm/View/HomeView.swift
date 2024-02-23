@@ -16,7 +16,7 @@ struct HomeView: View {
             Text("HomeView")
             
             WatermelonSceneView(watermelon: Watermelon(
-                imgName: "watermelonTmp0",
+                imgName: "wv1",
                 taste: .stemSmall
             ))
                 .frame(width: 330, height: 500)
