@@ -102,7 +102,7 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         for i in 1..<points.count {
             let startPoint = points[i - 1]
             let endPoint = points[i]
-            let height = CGFloat(GLKVector3Distance(SCNVector3ToGLKVector3(startPoint), SCNVector3ToGLKVector3(endPoint)))
+            let height = CGFloat(length(simd_float3(endPoint) - simd_float3(startPoint))) // GLKVector3Distance 대체
             let cylinder = SCNCylinder(radius: max(0.02, CGFloat(i) * 0.004), height: height)
             cylinder.firstMaterial?.diffuse.contents = UIImage(named: "stemTextureDried1.jpg")
 
@@ -159,16 +159,23 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         }
         
         @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-            print("탭 제스처 감지됨")
-            guard let path = Bundle.main.path(forResource: "tap29", ofType: "mp3") else { return }
-            let url = URL(fileURLWithPath: path)
+
+            // 사운드 재생
+            guard let url = Bundle.main.url(forResource: "testSoundTrain", withExtension: "mp3") else { return }
+            
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
                 audioPlayer?.play()
-            } catch {
-                print("사운드 재생 중 오류 발생: \(error)")
+            } catch (let err) {
+                print(err.localizedDescription)
             }
+
+            // 햅틱 피드백 추가
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+            feedbackGenerator.prepare()
+            feedbackGenerator.impactOccurred()
         }
+
         
         @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
             guard let sceneView = gesture.view as? SCNView else { return }

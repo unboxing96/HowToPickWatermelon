@@ -37,6 +37,7 @@ struct TutorialView: View {
                 
                 VStack(alignment: .leading, spacing: 0) {
                     TopicView(page: page)
+                        .padding(.bottom)
                     
                     FeedbackView(answer: $answer, watermelonViews: watermelonViews, selectedIndex: selectedWatermelonIndex)
                         .frame(width: feedbackViewWidth)
@@ -49,13 +50,14 @@ struct TutorialView: View {
                         showAnswerResult: showAnswerResult
                     )
                     .padding(.bottom, 20)
+                    .border(.red)
                 }
                 .padding(.horizontal)
-                .border(.orange)
+                .border(.blue)
             }
             .padding(.horizontal)
             .padding(.top, 25)
-            .padding(.bottom, 45)
+            .padding(.bottom, 25)
             .border(.orange)
             
             createButtonView(
