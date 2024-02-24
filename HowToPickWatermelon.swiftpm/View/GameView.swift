@@ -139,9 +139,9 @@ struct GameView: View {
     
     private func evaluateAnswer(trial: Trial) {
         let isGood = watermelonGameViews[currentIndex].watermelon.isDelicious()
-        answer = isGood && trial == .good
-        ? .correct : !isGood && trial == .bad
-        ? .correct : .wrong
+        answer = isGood && trial == .good ? .correct
+        : !isGood && trial == .bad ? .correct
+        : .wrong
     }
     
     private func generateFeedback() {

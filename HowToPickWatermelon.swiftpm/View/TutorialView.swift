@@ -16,6 +16,12 @@ struct TutorialView: View {
     @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
     @State private var answer: Answer = .undefined
     @State private var feedbackViewWidth: CGFloat = .infinity
+    @State private var showAnswerResult = false {
+        willSet {
+            print(newValue)
+        }
+    } // 정답 확인 상태 추가
+    
     private let gridItems = [
         GridItem(.flexible(minimum: 0), spacing: 0),
         GridItem(.flexible(minimum: 0), spacing: 0)]
@@ -43,10 +49,10 @@ struct TutorialView: View {
                                 .frame(width: 158, height: 158)
                                 .clipShape(.rect(cornerRadius: 10))
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 10) // 테두리 모양 정의
-                                        .stroke(selectedWatermelonIndex == index ? Color.blue : Color.clear, lineWidth: 3) // 선택된 아이템에만 테두리 적용
+                                    OverlayView(answer: $answer, selectedIndex: selectedWatermelonIndex, index: index, showAnswerResult: showAnswerResult)
                                 )
                                 .onTapGesture {
+                                    showAnswerResult = false
                                     selectedWatermelonIndex = index // 사용자가 탭할 때 선택된 인덱스 업데이트
                                 }
                         }
@@ -60,47 +66,37 @@ struct TutorialView: View {
             .padding(.vertical, 45)
             .border(.orange)
             
-            Button {
-                switch answer {
-                case .correct:
-                    withAnimation {
-                        page = page.navigateToNextPage(with: page)
-                    }
-                default: // .wrong
-                    answer =
-                    watermelonViews[selectedWatermelonIndex ?? 0]
-                        .watermelon.isDelicious() == true ? .correct : .wrong
-                    feedbackViewWidth = 0.0
-                    withAnimation(.snappy(duration: 0.4, extraBounce: 0.1)) {
-                        feedbackViewWidth = .infinity
-                    }
+            if answer == .correct {
+                Button {
+                    withAnimation { page = page.navigateToNextPage(with: page) }
+                } label: {
+                    MoveToNextButtonView()
+                        .padding(.vertical, 30)
                 }
-            } label: {
-                AnswerButtonView(answer: $answer)
-                    .padding(.vertical, 30)
+            } else {
+                Button { evaluateStageAnswer()
+                } label: {
+                    ConfirmButtonView(selectedWatermelonIndex: $selectedWatermelonIndex)
+                        .padding(.vertical, 30)
+                }
             }
         }
         .onAppear {
-            print("onAppear")
             setupWatermelonViews(for: page)
-            print(watermelonViews.count)
         }
         .onChange(of: page) { newValue in
             withAnimation {
+                setupWatermelonViews(for: newValue)
                 viewUpdateKey = UUID()
                 currentIndex = 0
                 answer = .undefined
                 selectedWatermelonIndex = nil
-                setupWatermelonViews(for: newValue)
             }
         }
         .id(viewUpdateKey) // 이 key를 사용하여 뷰 갱신 강제
     }
     
     private func setupWatermelonViews(for page: Page) {
-        
-        print("setupWatermelonViews !!!!: \(page)")
-        
         switch page {
         case .tutorialStripe:
             watermelonViews = [
@@ -165,6 +161,24 @@ struct TutorialView: View {
         return indexOffset - currentIndexOffset
     }
     
+    private func evaluateStageAnswer() {
+        switch answer {
+        case .correct:
+            withAnimation {
+                page = page.navigateToNextPage(with: page)
+            }
+        default: // .wrong
+            answer =
+            watermelonViews[selectedWatermelonIndex ?? 0]
+                .watermelon.isDelicious() == true ? .correct : .wrong
+            feedbackViewWidth = 0.0
+            withAnimation(.snappy(duration: 0.4, extraBounce: 0.1)) {
+                feedbackViewWidth = .infinity
+            }
+        }
+        
+        showAnswerResult = true
+    }
 }
 
 #Preview {

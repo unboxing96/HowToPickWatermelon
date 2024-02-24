@@ -18,7 +18,6 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         let sceneView = SCNView()
         sceneView.scene = createWatermelonScene()
         sceneView.allowsCameraControl = false // camera control disabled
-        sceneView.showsStatistics = true // 통계 정보 표시
         
 //        if watermelon.interaction == true {
             addGestureRecognizers(to: sceneView, context: context)
