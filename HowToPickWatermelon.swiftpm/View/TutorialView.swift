@@ -25,16 +25,13 @@ struct TutorialView: View {
         let content = page.tutorialContent
         
         VStack(spacing: 0) {
-            TopicView()
-                .overlay {
-                    Text(content.title)
-                }
-                .padding(.top, 30)
             
             ZStack {
                 WatermelonBackgroundView()
                 
                 VStack(alignment: .leading, spacing: 0) {
+                    TopicView(text: content.title)
+                    
                     FeedbackView(answer: $answer)
                         .frame(width: feedbackViewWidth)
                         .padding(.vertical)

@@ -8,15 +8,20 @@
 import SwiftUI
 
 struct TopicView: View {
+    let text: String
+    
     var body: some View {
         Rectangle()
-            .foregroundStyle(.gray)
-            .opacity(0.5)
+            .foregroundStyle(.clear)
             .clipShape(.rect(cornerRadius: 5))
-            .frame(width: 360, height: 60)
+            .frame(height: 60)
+            .overlay {
+                Text(text)
+                    .font(.system(size: 24))
+            }
     }
 }
 
 #Preview {
-    TopicView()
+    TopicView(text: "Stripes")
 }

@@ -18,10 +18,12 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         let sceneView = SCNView()
         sceneView.scene = createWatermelonScene()
         sceneView.allowsCameraControl = false // camera control disabled
+        sceneView.showsStatistics = true // 통계 정보 표시
         
 //        if watermelon.interaction == true {
             addGestureRecognizers(to: sceneView, context: context)
 //        }
+        
         return sceneView
     }
     
@@ -41,6 +43,11 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         watermelonNode.eulerAngles.x += 0.6
         watermelonNode.eulerAngles.y += 0.6
         scene.rootNode.addChildNode(watermelonNode)
+        
+        // 수박 줄기 추가
+        let stemNode = createStemNode()
+        stemNode.position = SCNVector3(0, 1, 0) // 수박 위에 위치시킵니다.
+        watermelonNode.addChildNode(stemNode) // 수박 노드에 줄기 노드를 자식으로 추가합니다.
         
         // 커스텀 카메라 노드 추가
         let cameraNode = SCNNode()
@@ -68,6 +75,40 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
     func makeCoordinator() -> Coordinator {
         Coordinator()
     }
+    
+    private func createStemNode() -> SCNNode {
+        let stemNode = SCNNode()
+
+        let numberOfSegments = 50 // 원기둥의 개수를 50개로 설정
+        var currentRadius = 0.08 // 시작 반지름
+        let heightPerSegment = 0.03 // 각 세그먼트의 높이
+        var currentPosition = 0.0 // 현재 세그먼트의 위치
+        
+        for i in 0..<numberOfSegments {
+            let cylinder = SCNCylinder(radius: CGFloat(currentRadius), height: CGFloat(heightPerSegment))
+            cylinder.firstMaterial?.diffuse.contents = UIColor.brown
+            
+            let cylinderNode = SCNNode(geometry: cylinder)
+            cylinderNode.position = SCNVector3(0, currentPosition, 0)
+            
+            // 세그먼트마다 약간의 회전을 추가하여 자연스러운 구불거림 효과 생성
+            let rotationAngle = Float(i) * (Float.pi / 180.0) * 5.0 // 5도 단위로 증가하는 회전 각
+            cylinderNode.eulerAngles = SCNVector3(0, 0, rotationAngle * 0.1)
+            
+            stemNode.addChildNode(cylinderNode)
+            
+            // 다음 세그먼트를 위해 반지름과 위치 조정
+            currentRadius *= 0.98 // 위로 갈수록 반지름을 점점 줄임
+            currentPosition += heightPerSegment // 다음 세그먼트의 위치를 높이만큼 증가시킴
+        }
+
+        // 전체 줄기를 수직으로 세우기 위한 조정
+        stemNode.eulerAngles = SCNVector3(-Float.pi / 2, 0, 0)
+        
+        return stemNode
+    }
+
+
     
     class Coordinator: NSObject {
         var audioPlayer: AVAudioPlayer?

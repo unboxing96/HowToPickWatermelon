@@ -22,7 +22,7 @@ extension Page {
         switch self {
         case .tutorialStripe:
             return TutorialPageContent(
-                title: "Stripe",
+                title: "Which stripes look delicious?",
                 taste: [.stripeNarrow, .stripeWide]
             )
         case .tutorialSound:
