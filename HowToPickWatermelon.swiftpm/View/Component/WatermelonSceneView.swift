@@ -79,36 +79,52 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
     private func createStemNode() -> SCNNode {
         let stemNode = SCNNode()
 
-        let numberOfSegments = 50 // 원기둥의 개수를 50개로 설정
-        var currentRadius = 0.08 // 시작 반지름
-        let heightPerSegment = 0.03 // 각 세그먼트의 높이
-        var currentPosition = 0.0 // 현재 세그먼트의 위치
-        
-        for i in 0..<numberOfSegments {
-            let cylinder = SCNCylinder(radius: CGFloat(currentRadius), height: CGFloat(heightPerSegment))
-            cylinder.firstMaterial?.diffuse.contents = UIColor.brown
-            
-            let cylinderNode = SCNNode(geometry: cylinder)
-            cylinderNode.position = SCNVector3(0, currentPosition, 0)
-            
-            // 세그먼트마다 약간의 회전을 추가하여 자연스러운 구불거림 효과 생성
-            let rotationAngle = Float(i) * (Float.pi / 180.0) * 5.0 // 5도 단위로 증가하는 회전 각
-            cylinderNode.eulerAngles = SCNVector3(0, 0, rotationAngle * 0.1)
-            
-            stemNode.addChildNode(cylinderNode)
-            
-            // 다음 세그먼트를 위해 반지름과 위치 조정
-            currentRadius *= 0.98 // 위로 갈수록 반지름을 점점 줄임
-            currentPosition += heightPerSegment // 다음 세그먼트의 위치를 높이만큼 증가시킴
+        // 줄기의 곡선을 정의하는 포인트들을 생성합니다.
+        var points = [SCNVector3]()
+        let stemHeight: CGFloat = 0.1 // 줄기의 높이
+        let stemCurvature: CGFloat = 0.2 // 줄기의 곡률
+        let numberOfPoints = 20 // 줄기를 구성하는 포인트의 수
+
+        for i in 0..<numberOfPoints {
+            let x = stemCurvature * sin(CGFloat(i) * .pi / CGFloat(numberOfPoints))
+            let y = stemHeight * CGFloat(i) / CGFloat(numberOfPoints)
+            let z = stemCurvature * cos(CGFloat(i) * .pi / CGFloat(numberOfPoints))
+            points.append(SCNVector3(x, y, z))
         }
 
-        // 전체 줄기를 수직으로 세우기 위한 조정
-        stemNode.eulerAngles = SCNVector3(-Float.pi / 2, 0, 0)
+        let xOffset: CGFloat = -0.21 // 왼쪽으로 이동할 거리
+        let yOffset: CGFloat = -0.04 // 왼쪽으로 이동할 거리
+        for i in 0..<points.count {
+            points[i].x += Float(xOffset)
+            points[i].y += Float(yOffset)
+        }
         
+        // 포인트들을 사용하여 줄기의 곡선을 따라 SCNCylinder들을 배치합니다.
+        for i in 1..<points.count {
+            let startPoint = points[i - 1]
+            let endPoint = points[i]
+            let height = CGFloat(GLKVector3Distance(SCNVector3ToGLKVector3(startPoint), SCNVector3ToGLKVector3(endPoint)))
+            let cylinder = SCNCylinder(radius: max(0.02, CGFloat(i) * 0.004), height: height)
+            cylinder.firstMaterial?.diffuse.contents = UIImage(named: "stemTextureDried1.jpg")
+
+            let cylinderNode = SCNNode(geometry: cylinder)
+            cylinderNode.position = SCNVector3((startPoint.x + endPoint.x) / 2,
+                                               (startPoint.y + endPoint.y) / 2,
+                                               (startPoint.z + endPoint.z) / 2)
+
+            // 줄기 세그먼트의 방향을 계산하여 회전시킵니다.
+            // worldUp 벡터를 기본 Y 축 방향인 (0, 1, 0)으로 설정합니다.
+            let worldUp = SCNVector3(0, 1, 0)
+            cylinderNode.look(at: endPoint, up: worldUp, localFront: cylinderNode.worldUp)
+            stemNode.addChildNode(cylinderNode)
+        }
+
+        // 전체 줄기를 적절히 조정하여 수박 위에 위치시킵니다.
+        stemNode.position = SCNVector3(-0.5, 0.5, 0) // 'x' 값을 조정하여 왼쪽으로 이동
+        stemNode.eulerAngles.x = -Float.pi / 0.4 // 필요한 경우 조정
+
         return stemNode
     }
-
-
     
     class Coordinator: NSObject {
         var audioPlayer: AVAudioPlayer?
