@@ -15,7 +15,7 @@ struct GameView: View {
     @State private var watermelonGameViews: [WatermelonSceneView] = []
     @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
     @State private var answer: Answer = .undefined
-    @State private var feedbackViewWidth: CGFloat = 0.0
+    @State private var feedbackViewWidth: CGFloat = .infinity
     @State private var progressValue: Double = 1.0
     @State private var hasOnAppearedBeenExecuted = false
     
