@@ -31,6 +31,11 @@ struct FeedbackView: View {
                     Text("?")
                 }
             }
+            .onAppear {
+                print("answer: \(answer)")
+                print("selectedIndex: \(selectedIndex ?? 99)")
+                print("watermelonViews: \(watermelonViews.count)")
+            }
     }
 }
 

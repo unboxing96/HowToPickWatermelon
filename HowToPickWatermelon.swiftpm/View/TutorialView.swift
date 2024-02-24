@@ -43,20 +43,11 @@ struct TutorialView: View {
                         .padding(.vertical)
                         .border(.orange)
                     
-                    LazyVGrid(columns: gridItems, spacing: 10) {
-                        ForEach(0..<watermelonViews.count, id: \.self) { index in
-                            watermelonViews[index]
-                                .frame(width: 158, height: 158)
-                                .clipShape(.rect(cornerRadius: 10))
-                                .overlay(
-                                    OverlayView(answer: $answer, selectedIndex: selectedWatermelonIndex, index: index, showAnswerResult: showAnswerResult)
-                                )
-                                .onTapGesture {
-                                    showAnswerResult = false
-                                    selectedWatermelonIndex = index // 사용자가 탭할 때 선택된 인덱스 업데이트
-                                }
-                        }
-                    }
+                    createLazyVGridView(
+                        watermelonViews: watermelonViews,
+                        selectedWatermelonIndex: selectedWatermelonIndex,
+                        showAnswerResult: showAnswerResult
+                    )
                     .padding(.bottom, 20)
                 }
                 .padding(.horizontal)
@@ -67,21 +58,11 @@ struct TutorialView: View {
             .padding(.bottom, 45)
             .border(.orange)
             
-            if answer == .correct {
-                Button {
-                    withAnimation { page = page.navigateToNextPage(with: page) }
-                } label: {
-                    MoveToNextButtonView()
-                        .padding(.vertical, 30)
-                }
-            } else {
-                Button { evaluateStageAnswer()
-                } label: {
-                    ConfirmButtonView()
-                        .padding(.vertical, 30)
-                }
-                .disabled(selectedWatermelonIndex == nil)
-            }
+            createButtonView(
+                answer: answer, page: page,
+                evaluateStageAnswer: evaluateStageAnswer,
+                selectedWatermelonIndex: selectedWatermelonIndex
+            )
         }
         .onAppear {
             setupWatermelonViews(for: page)
@@ -180,6 +161,57 @@ struct TutorialView: View {
         }
         
         showAnswerResult = true
+    }
+    
+    @ViewBuilder
+    func createButtonView(answer: Answer, page: Page, evaluateStageAnswer: @escaping () -> Void, selectedWatermelonIndex: Int?) -> some View {
+        if answer == .correct && page.rawValue != 4 {
+            Button(action: {
+                withAnimation {
+                    self.page = page.navigateToNextPage(with: page)
+                }
+            }) {
+                MoveToNextButtonView()
+                    .padding(.vertical, 30)
+            }
+            .transition(.opacity)
+        } else if answer == .correct && page.rawValue == 4 {
+            Button(action: {
+                withAnimation {
+                    self.answer = .undefined
+                    self.selectedWatermelonIndex = nil
+                    self.page = page.navigateToNextPage(with: page)
+                }
+            }) {
+                MoveToGameButtonView()
+                    .padding(.vertical, 30)
+            }
+            .transition(.opacity)
+        } else {
+            Button(action: evaluateStageAnswer) {
+                ConfirmButtonView()
+                    .padding(.vertical, 30)
+            }
+            .disabled(selectedWatermelonIndex == nil)
+            .transition(.opacity)
+        }
+    }
+    
+    func createLazyVGridView(watermelonViews: [WatermelonSceneView], selectedWatermelonIndex: Int?, showAnswerResult: Bool) -> some View {
+        LazyVGrid(columns: gridItems, spacing: 10) {
+            ForEach(0..<watermelonViews.count, id: \.self) { index in
+                watermelonViews[index]
+                    .frame(width: 158, height: 158)
+                    .clipShape(.rect(cornerRadius: 10))
+                    .overlay(
+                        OverlayView(answer: $answer, selectedIndex: selectedWatermelonIndex, index: index, showAnswerResult: showAnswerResult)
+                    )
+                    .onTapGesture {
+                        self.showAnswerResult = false
+                        self.selectedWatermelonIndex = index
+                    }
+            }
+        }
     }
 }
 
