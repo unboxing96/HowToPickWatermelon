@@ -12,6 +12,8 @@ struct Watermelon {
     let imgName: String
     let taste: Taste
     let interaction: Bool = false
+    let feedbackTextForWrong: String = "Wrong"
+    let feedbackTextForCorrect: String = "Correct"
 }
 
 extension Watermelon {
@@ -21,6 +23,17 @@ extension Watermelon {
             return true
         default:
             return false
+        }
+    }
+    
+    func getFeedbackText(answer: Answer) -> String {
+        switch answer {
+        case .correct:
+            return self.feedbackTextForCorrect
+        case .wrong:
+            return self.feedbackTextForWrong
+        default:
+            return ""
         }
     }
 }

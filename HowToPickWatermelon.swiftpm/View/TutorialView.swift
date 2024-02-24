@@ -16,11 +16,7 @@ struct TutorialView: View {
     @State private var viewUpdateKey = UUID() // 뷰 갱신을 위한 key
     @State private var answer: Answer = .undefined
     @State private var feedbackViewWidth: CGFloat = .infinity
-    @State private var showAnswerResult = false {
-        willSet {
-            print(newValue)
-        }
-    } // 정답 확인 상태 추가
+    @State private var showAnswerResult = false
     
     private let gridItems = [
         GridItem(.flexible(minimum: 0), spacing: 0),
@@ -28,17 +24,21 @@ struct TutorialView: View {
     
     
     var body: some View {
-        let content = page.tutorialContent
-        
         VStack(spacing: 0) {
+            
+            Text("Tutorial")
+                .font(.system(size: 18))
+                .fontWeight(.bold)
+                .foregroundStyle(.gray)
+                .opacity(0.8)
             
             ZStack {
                 WatermelonBackgroundView()
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    TopicView(text: content.title)
+                    TopicView(page: page)
                     
-                    FeedbackView(answer: $answer)
+                    FeedbackView(answer: $answer, watermelonViews: watermelonViews, selectedIndex: selectedWatermelonIndex)
                         .frame(width: feedbackViewWidth)
                         .padding(.vertical)
                         .border(.orange)
@@ -63,7 +63,8 @@ struct TutorialView: View {
                 .border(.orange)
             }
             .padding(.horizontal)
-            .padding(.vertical, 45)
+            .padding(.top, 25)
+            .padding(.bottom, 45)
             .border(.orange)
             
             if answer == .correct {
@@ -76,9 +77,10 @@ struct TutorialView: View {
             } else {
                 Button { evaluateStageAnswer()
                 } label: {
-                    ConfirmButtonView(selectedWatermelonIndex: $selectedWatermelonIndex)
+                    ConfirmButtonView()
                         .padding(.vertical, 30)
                 }
+                .disabled(selectedWatermelonIndex == nil)
             }
         }
         .onAppear {

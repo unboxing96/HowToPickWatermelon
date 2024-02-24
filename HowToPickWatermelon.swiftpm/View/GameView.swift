@@ -28,7 +28,7 @@ struct GameView: View {
                 WatermelonBackgroundView()
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    FeedbackView(answer: $answer)
+                    FeedbackView(answer: $answer, watermelonViews: watermelonGameViews, selectedIndex: currentIndex)
                         .frame(width: feedbackViewWidth)
                         .padding(.top, 20)
                         .border(.orange)

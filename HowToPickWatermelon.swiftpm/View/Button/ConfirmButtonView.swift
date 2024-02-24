@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ConfirmButtonView: View {
-    @Binding var selectedWatermelonIndex: Int?
-    
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .foregroundStyle(.gray)
@@ -18,10 +16,9 @@ struct ConfirmButtonView: View {
             .overlay {
                 Text("Confirm The Answer")
             }
-            .disabled(selectedWatermelonIndex == nil)
     }
 }
 
 #Preview {
-    ConfirmButtonView(selectedWatermelonIndex: .constant(0))
+    ConfirmButtonView()
 }
