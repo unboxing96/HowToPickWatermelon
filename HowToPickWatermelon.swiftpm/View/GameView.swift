@@ -145,7 +145,7 @@ struct GameView: View {
                     score += 1
                     moveToNextView()
                 } label: {
-                    MoveToNextButtonView()
+                    MoveToNextButtonView(text: "Move To Next")
                 }
             }
             .padding(.bottom, 30)

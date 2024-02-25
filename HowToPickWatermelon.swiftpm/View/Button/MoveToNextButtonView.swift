@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MoveToNextButtonView: View {
+    let text: String
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .stroke(Color.blue, lineWidth: 3)
@@ -15,11 +17,11 @@ struct MoveToNextButtonView: View {
             .opacity(0.5)
             .frame(width: 360, height: 70)
             .overlay {
-                Text("Move To Next")
+                Text(text)
             }
     }
 }
 
 #Preview {
-    MoveToNextButtonView()
+    MoveToNextButtonView(text: "Move To Next")
 }

@@ -12,26 +12,20 @@ struct HomeView: View {
     @Binding var page: Page
     
     var body: some View {
-        VStack {
-            Text("HomeView")
+        VStack(spacing: 0) {
+            HomeTitleView()
             
             WatermelonSceneView(watermelon: Watermelon(
                 imgName: "wv1",
                 taste: .stemSmall
             ))
-                .frame(width: 330, height: 500)
+            .frame(width: 330, height: 450)
             
-            Button {
-                page = .tutorialStripe
-            } label: {
-                Text("Tutorial")
-            }
+            HomeButtonView(page: $page, pageToGo: .tutorialStripe)
+                .padding(.bottom)
             
-            Button {
-                page = .game
-            } label: {
-                Text("Game")
-            }
+            HomeButtonView(page: $page, pageToGo: .game)
+                .padding(.bottom, 35)
         }
     }
 }

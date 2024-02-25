@@ -5,16 +5,21 @@ struct ContentView: View {
     @State private var score: Int = 0
     
     var body: some View {
-        VStack {
-            switch page {
-            case .home:
-                HomeView(page: $page)
-            case .tutorialStripe, .tutorialSound, .tutorialStem, .tutorialSpot:
-                TutorialView(page: $page)
-            case .game:
-                GameView(page: $page, score: $score)
-            case .score:
-                ScoreView(page: $page, score: $score)
+        ZStack {
+            Color.white
+                .ignoresSafeArea()
+            
+            VStack {
+                switch page {
+                case .home:
+                    HomeView(page: $page)
+                case .tutorialStripe, .tutorialSound, .tutorialStem, .tutorialSpot:
+                    TutorialView(page: $page)
+                case .game:
+                    GameView(page: $page, score: $score)
+                case .score:
+                    ScoreView(page: $page, score: $score)
+                }
             }
         }
     }

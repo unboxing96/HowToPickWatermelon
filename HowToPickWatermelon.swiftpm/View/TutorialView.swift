@@ -175,7 +175,7 @@ struct TutorialView: View {
                     self.page = page.navigateToNextPage(with: page)
                 }
             }) {
-                MoveToNextButtonView()
+                MoveToNextButtonView(text: "Move To Next")
                     .padding(.vertical, 30)
             }
             .transition(.opacity)
@@ -185,15 +185,16 @@ struct TutorialView: View {
                     self.answer = .undefined
                     self.selectedWatermelonIndex = nil
                     self.page = page.navigateToNextPage(with: page)
+                    UserDefaults.standard.set(true, forKey: "tutorialCompleted")
                 }
             }) {
-                MoveToGameButtonView()
+                MoveToNextButtonView(text: "Move To The Game")
                     .padding(.vertical, 30)
             }
             .transition(.opacity)
         } else {
             Button(action: evaluateStageAnswer) {
-                ConfirmButtonView()
+                TutorialButtonView(text: "Confirm The Answer")
                     .padding(.vertical, 30)
             }
             .disabled(selectedWatermelonIndex == nil)
