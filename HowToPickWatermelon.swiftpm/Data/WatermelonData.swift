@@ -59,7 +59,7 @@ let watermelonData: [Watermelon] = [
         imgBodyName: "stripeWide3",
         imgStemName: "stemDried1",
         taste: .stripeWide,
-        feedbackText: "If the stripes are far apart, the watermelon might not taste very sweet."
+        feedbackText: "If the stripes are far apart, the watermelons might not taste sweet."
     ),
     
     // MARK: - Sound
@@ -123,7 +123,7 @@ let watermelonData: [Watermelon] = [
         imgBodyName: "stipeNarrow2",
         imgStemName: "stemFresh1",
         taste: .stemFresh,
-        feedbackText: "A watermelon with a fresh-looking stem might not be ripe."
+        feedbackText: "A watermelon with a fresh -looking stem might not be ripe."
     ),
     Watermelon(
         imgBodyName: "stipeNarrow1",
@@ -149,7 +149,7 @@ let watermelonData: [Watermelon] = [
         imgBodyName: "spotOrange2",
         imgStemName: "stemDried1",
         taste: .spotOrange,
-        feedbackText: "Sweet watermelons have a orange spot where they rested on the ground."
+        feedbackText: "The sweets have an orange spot where they rested on the ground."
     ),
     Watermelon(
         imgBodyName: "spotOrange3",
@@ -167,12 +167,12 @@ let watermelonData: [Watermelon] = [
         imgBodyName: "spotWhite2",
         imgStemName: "stemDried1",
         taste: .spotWhite,
-        feedbackText: "Avoid watermelons with too many white spots; they're not as sweet."
+        feedbackText: "Avoid watermelons with too many white spots."
     ),
     Watermelon(
         imgBodyName: "spotWhite3",
         imgStemName: "stemDried1",
         taste: .spotWhite,
-        feedbackText: ""
+        feedbackText: "For sale, White spots, never eaten"
     )
 ]

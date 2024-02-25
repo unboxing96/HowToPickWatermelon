@@ -19,7 +19,7 @@ struct FeedbackView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             Rectangle()
-                .foregroundStyle(answer == .correct ? .green : answer == .wrong ? .red : .gray)
+                .foregroundStyle(answer == .correct ? Color.buttonMidInner : answer == .wrong ? .red : .gray)
                 .opacity(0.5)
                 .clipShape(.rect(cornerRadius: 5))
                 .frame(height: 80)
@@ -29,10 +29,14 @@ struct FeedbackView: View {
                             Text(feedbackString)
                                 .fontWeight(.semibold)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 50)
+                            .padding(.leading, 40)
+                            .padding(.trailing, 10)
                         }
                     } else {
                         Text("?")
+                            .foregroundStyle(Color.grayDark)
+                            .font(.system(size: 20))
+                            .fontWeight(.heavy)
                     }
                 }
         }
@@ -46,13 +50,13 @@ struct FeedbackView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 70, height: 70)
-                .offset(CGSize(width: -10, height: -15))
+                .offset(CGSize(width: -15, height: -25))
         case .wrong:
             Image("exclamationMark")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 70, height: 70)
-                .offset(CGSize(width: -10, height: -15))
+                .offset(CGSize(width: -15, height: -25))
         default:
             EmptyView()
         }

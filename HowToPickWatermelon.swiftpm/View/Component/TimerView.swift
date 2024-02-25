@@ -21,10 +21,15 @@ struct TimerView: View {
                     .frame(width: geometry.size.width)
                 
                 Rectangle()
-                    .foregroundStyle(.blue)
-                    .opacity(0.5)
+                    .foregroundStyle(Color.buttonDarkInner)
                     .clipShape(.rect(cornerRadius: 5))
                     .frame(width: geometry.size.width * (remainingTime / totalTime))
+                
+                Text("Timer")
+                    .font(.system(size: 14))
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white)
+                    .padding(.leading, 10)
             }
         }
         .frame(height: 30)

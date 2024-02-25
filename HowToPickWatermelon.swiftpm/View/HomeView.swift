@@ -27,7 +27,7 @@ struct HomeView: View {
                 .padding(.bottom)
             
             HomeButtonView(page: $page, pageToGo: .game)
-                .padding(.bottom, 60)
+                .padding(.bottom, 55)
         }
     }
 }

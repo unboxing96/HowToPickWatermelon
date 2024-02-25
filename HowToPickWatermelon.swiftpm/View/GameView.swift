@@ -70,11 +70,7 @@ struct GameView: View {
         }
         .onChange(of: currentIndex) { newValue in
             withAnimation {
-                var transaction = Transaction()
-                transaction.disablesAnimations = true
-                withTransaction(transaction) {
-                    viewUpdateKey = UUID()
-                }
+                viewUpdateKey = UUID()
                 answer = .undefined
                 self.isButtonDisabled = true
             }

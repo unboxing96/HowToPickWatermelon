@@ -13,7 +13,7 @@ struct TopicView: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .foregroundStyle(.clear)
-            .frame(height: 70)
+            .frame(height: 60)
             .overlay {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Round \(page.rawValue)")
@@ -21,14 +21,20 @@ struct TopicView: View {
                         .fontWeight(.bold)
                         .foregroundStyle(.gray)
                         .opacity(0.8)
-                    Text(page.tutorialContent.title)
-                        .font(.system(size: 24))
-                        .fontWeight(.bold)
-                        .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    HStack(spacing: 0) {
+                        Text("Pick the sweetest ")
+                            .font(.system(size: 22))
+                            .fontWeight(.semibold)
+                        Text(page.tutorialContent.title)
+                            .font(.system(size: 24))
+                             .fontWeight(.bold)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(.top, 10)
             }
+            .padding(.top, 10)
+            .border(.red)
     }
 }
 

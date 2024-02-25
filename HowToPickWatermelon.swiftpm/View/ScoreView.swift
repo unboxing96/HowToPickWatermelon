@@ -12,19 +12,18 @@ struct ScoreView: View {
     @Binding var score: Int
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HighScoreTitleView()
-                .border(.red)
+                .padding(.bottom)
             
             ScoreTitleView(score: $score)
                 .padding(.vertical, 30)
             
             ScoreButtonView(page: $page, pageToGo: .game)
                 .padding(.bottom)
-                .padding(.top, 80)
+                .padding(.top, 102)
             
             ScoreButtonView(page: $page, pageToGo: .home)
-                .padding(.bottom)
         }
         .onDisappear {
             print("ScoreView onDisappear !!!")

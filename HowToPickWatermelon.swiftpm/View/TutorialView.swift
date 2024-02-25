@@ -32,6 +32,7 @@ struct TutorialView: View {
                 .fontWeight(.bold)
                 .foregroundStyle(.gray)
                 .opacity(0.8)
+                .padding(.top, 25)
             
             ZStack {
                 WatermelonBackgroundView()
