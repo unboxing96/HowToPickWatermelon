@@ -12,28 +12,27 @@ struct Watermelon {
     let imgBodyName: String
     let imgStemName: String
     let taste: Taste
-    let feedbackTextForWrong: String
-    let feedbackTextForCorrect: String
+    let feedbackText: String
 }
 
 extension Watermelon {
     func isDelicious() -> Bool {
         switch self.taste {
-        case .stripeNarrow, .soundClear, .stemSmall, .spotOrange:
+        case .stripeNarrow, .soundClear, .stemDried, .spotOrange:
             return true
         default:
             return false
         }
     }
     
-    func getFeedbackText(answer: Answer) -> String {
-        switch answer {
-        case .correct:
-            return self.feedbackTextForCorrect
-        case .wrong:
-            return self.feedbackTextForWrong
-        default:
-            return ""
-        }
-    }
+//    func getFeedbackText(answer: Answer) -> String {
+//        switch answer {
+//        case .correct:
+//            return self.feedbackTextForCorrect
+//        case .wrong:
+//            return self.feedbackTextForWrong
+//        default:
+//            return ""
+//        }
+//    }
 }

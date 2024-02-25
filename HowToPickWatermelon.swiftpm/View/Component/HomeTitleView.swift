@@ -9,14 +9,14 @@ import SwiftUI
 
 struct HomeTitleView: View {
     var body: some View {
-        Text("How To Pick")
-            .foregroundStyle(.primary)
+        Text("How To Pick:")
+            .foregroundStyle(.black)
             .fontWeight(.bold)
             .font(.system(size: 40))
-            .padding(.top, 30)
+            .padding(.top, 50)
         
         Text("Watermelon")
-            .foregroundStyle(.primary)
+            .foregroundStyle(.black)
             .fontWeight(.bold)
             .font(.system(size: 50))
     }

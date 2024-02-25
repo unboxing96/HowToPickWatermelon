@@ -10,8 +10,8 @@ import Foundation
 enum Taste: Int, CaseIterable {
     case stripeNarrow = 0
     case stripeWide
-    case stemSmall
-    case stemLarge
+    case stemDried
+    case stemFresh
     case soundClear
     case soundHeavy
     case spotOrange

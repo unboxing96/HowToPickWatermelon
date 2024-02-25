@@ -97,13 +97,13 @@
 //            watermelonViews = [
 //                WatermelonSceneView(watermelon: Watermelon(
 //                    imgName: "watermelonTmp2",
-//                    taste: .stemLarge)),
+//                    taste: .stemFresh)),
 //                WatermelonSceneView(watermelon: Watermelon(
 //                    imgName: "watermelonTmp2",
-//                    taste: .stemSmall)),
+//                    taste: .stemDried)),
 //                WatermelonSceneView(watermelon: Watermelon(
 //                    imgName: "watermelonTmp2",
-//                    taste: .stemLarge))
+//                    taste: .stemFresh))
 //            ]
 //        case .tutorialSpot:
 //            watermelonViews = [

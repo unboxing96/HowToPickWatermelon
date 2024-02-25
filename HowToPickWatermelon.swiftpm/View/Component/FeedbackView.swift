@@ -27,7 +27,7 @@ struct FeedbackView: View {
                         if let selectedIndex {
                             Text(watermelonViews[selectedIndex]
                                 .watermelon
-                                .getFeedbackText(answer: answer))
+                                .feedbackText)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 45)
                         }

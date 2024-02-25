@@ -18,9 +18,8 @@ struct HomeView: View {
             WatermelonSceneView(watermelon: Watermelon(
                 imgBodyName: "wv1",
                 imgStemName: "stemTextureDried1",
-                taste: .stemSmall,
-                feedbackTextForWrong: "This is Too Sweet",
-                feedbackTextForCorrect: "This is Too Sweet"
+                taste: .stemDried,
+                feedbackText: ""
             ))
             .frame(width: 330, height: 450)
             

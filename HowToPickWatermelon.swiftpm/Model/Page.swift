@@ -33,7 +33,7 @@ extension Page {
         case .tutorialStem:
             return TutorialPageContent(
                 title: "Stem",
-                taste: [.stemSmall, .stemLarge]
+                taste: [.stemDried, .stemFresh]
             )
         case .tutorialSpot:
             return TutorialPageContent(
