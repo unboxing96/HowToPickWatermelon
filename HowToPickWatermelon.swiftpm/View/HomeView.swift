@@ -16,13 +16,25 @@ struct HomeView: View {
         VStack(spacing: 0) {
             HomeTitleView()
             
-            WatermelonSceneView(watermelon: Watermelon(
-                imgBodyName: "wv1",
-                imgStemName: "stemTextureDried1",
-                taste: .stemDried,
-                feedbackText: ""
-            ), page: page)
-            .frame(width: 330, height: 450)
+            ZStack {
+                WatermelonSceneView(watermelon: Watermelon(
+                    imgBodyName: "wv1",
+                    imgStemName: "stemTextureDried1",
+                    taste: .stemDried,
+                    feedbackText: ""
+                ), page: page)
+                .frame(width: 330, height: 450)
+                .onTapGesture {
+                    withAnimation {
+                        showSwipeIndicator = false
+                    }
+                }
+                
+                if showSwipeIndicator {
+                    ArrowView(showSwipeIndicator: showSwipeIndicator)
+                }
+            }
+            
             
             HomeButtonView(page: $page, pageToGo: .tutorialStripe)
                 .padding(.bottom)

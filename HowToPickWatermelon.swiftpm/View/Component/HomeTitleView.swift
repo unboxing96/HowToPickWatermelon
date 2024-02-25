@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeTitleView: View {
     var body: some View {
-        Text("How To Pick:")
+        Text("How To Pick")
             .foregroundStyle(.black)
             .fontWeight(.bold)
             .font(.system(size: 40))
