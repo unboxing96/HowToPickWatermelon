@@ -19,7 +19,7 @@ struct GameView: View {
     @State private var progressValue: Double = 1.0
     @State private var hasOnAppearedBeenExecuted = false
     @State private var totalTime: CGFloat = 20 // 총 시간을 설정합니다.
-    @State private var remainingTime: CGFloat = 4 // 남은 시간을 설정합니다.
+    @State private var remainingTime: CGFloat = 20 // 남은 시간을 설정합니다.
     @State private var isButtonDisabled: Bool = true
     @State private var feedbackString: String = ""
     
@@ -144,6 +144,7 @@ struct GameView: View {
                     MoveToNextButtonView(text: "Move To Next")
                 }
             }
+            .frame(maxWidth: .infinity)
         case .wrong:
             HStack {
                 Button {
@@ -153,8 +154,9 @@ struct GameView: View {
                     MoveToNextButtonView(text: "Move To Next")
                 }
             }
+            .frame(maxWidth: .infinity)
         default: // .undefined
-            HStack(spacing: 20) {
+            HStack(spacing: 30) {
                 Button {
                     evaluateAnswer(trial: .good)
                     generateFeedback()
@@ -173,6 +175,7 @@ struct GameView: View {
                 .disabled(isButtonDisabled)
                 .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
             }
+            .frame(maxWidth: .infinity)
         }
     }
     

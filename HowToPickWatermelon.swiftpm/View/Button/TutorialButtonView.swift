@@ -11,13 +11,19 @@ struct TutorialButtonView: View {
     let text: String
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .foregroundStyle(.gray)
-            .opacity(0.5)
-            .frame(width: 360, height: 70)
-            .overlay {
-                Text(text)
-            }
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.buttonLightOuter, lineWidth: 2)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.buttonLightInner)
+                )
+                .frame(width: 350, height: 70)
+            
+            Text(text)
+                .foregroundColor(.black)
+                .fontWeight(.bold)
+        }
     }
 }
 

@@ -12,12 +12,17 @@ struct MoveToNextButtonView: View {
     
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
-            .stroke(Color.blue, lineWidth: 3)
-            .foregroundStyle(.gray)
-            .opacity(0.5)
-            .frame(width: 360, height: 70)
+            .fill(Color.buttonDarkInner)
+            .frame(width: 350, height: 70)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.buttonDarkOuter, lineWidth: 2)
+            )
             .overlay {
                 Text(text)
+                    .font(.system(size: 22))
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
             }
     }
 }

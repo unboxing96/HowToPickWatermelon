@@ -11,7 +11,7 @@ struct HighScoreTitleView: View {
     @State private var highScore: Int = UserDefaults.standard.integer(forKey: "highScore")
     
     var body: some View {
-        Text("Highscore: \(highScore)")
+        Text("High Score: \(highScore)")
             .foregroundStyle(.gray)
             .opacity(0.5)
             .fontWeight(.bold)

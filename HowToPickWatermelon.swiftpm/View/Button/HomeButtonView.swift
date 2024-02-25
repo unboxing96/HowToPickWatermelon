@@ -21,16 +21,21 @@ struct HomeButtonView: View {
                 page = pageToGo
             }
         } label: {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(pageToGo == .game && !isTutorialCompleted ? .gray : .green)
-                .opacity(0.5)
-                .frame(width: 250, height: 65)
-                .overlay {
-                    Text(pageToGo == .tutorialStripe ? "Tutorial" : "Game")
-                        .foregroundStyle(pageToGo == .game && !isTutorialCompleted ? .gray : .black)
-                        .font(.system(size: 25))
-                        .fontWeight(.bold)
-                }
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(pageToGo == .game && !isTutorialCompleted ? Color.grayMid : Color.buttonLightOuter, lineWidth: 2)
+                    .shadow(radius: 20)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundStyle(pageToGo == .game && !isTutorialCompleted ? Color.grayLight : Color.buttonLightInner)
+                    )
+                
+                Text(pageToGo == .tutorialStripe ? "Tutorial" : "Game")
+                    .foregroundStyle(pageToGo == .game && !isTutorialCompleted ? Color.grayMid : .black)
+                    .font(.system(size: 22))
+                    .fontWeight(.semibold)
+            }
+            .frame(width: 250, height: 65)
         }
 //        .disabled(pageToGo == .game && !isTutorialCompleted)
     }

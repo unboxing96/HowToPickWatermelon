@@ -11,13 +11,18 @@ struct GoodBadButtonView: View {
     let text: String
     
     var body: some View {
-        Rectangle()
-            .foregroundStyle(.gray)
-            .opacity(0.5)
-            .clipShape(.rect(cornerRadius: 10))
+        RoundedRectangle(cornerRadius: 10)
+            .stroke(Color.buttonLightOuter, lineWidth: 2)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundStyle(Color.buttonLightInner)
+            )
             .frame(width: 155, height: 70)
             .overlay {
                 Text(text)
+                    .font(.system(size: 22))
+                    .fontWeight(.heavy)
+                    .foregroundColor(.black)
             }
     }
 }

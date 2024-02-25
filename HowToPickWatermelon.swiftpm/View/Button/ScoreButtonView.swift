@@ -17,16 +17,20 @@ struct ScoreButtonView: View {
                 page = pageToGo
             }
         } label: {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(.gray)
-                .opacity(0.5)
-                .frame(width: 250, height: 65)
-                .overlay {
-                    Text(pageToGo == .game ? "Retry" : "Home")
-                        .foregroundStyle(.black)
-                        .font(.system(size: 25))
-                        .fontWeight(.bold)
-                }
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.buttonLightOuter, lineWidth: 2)
+                    .frame(width: 250, height: 65)
+                
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.buttonLightInner)
+                    .frame(width: 250, height: 65)
+                
+                Text(pageToGo == .game ? "Retry" : "Home")
+                    .foregroundColor(.black)
+                    .font(.system(size: 22))
+                    .fontWeight(.semibold)
+            }
         }
     }
 }

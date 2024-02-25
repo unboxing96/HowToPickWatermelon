@@ -22,13 +22,14 @@ struct FeedbackView: View {
                 .foregroundStyle(answer == .correct ? .green : answer == .wrong ? .red : .gray)
                 .opacity(0.5)
                 .clipShape(.rect(cornerRadius: 5))
-                .frame(height: 70)
+                .frame(height: 80)
                 .overlay {
                     if answer != .undefined {
-                        if let selectedIndex {
+                        if selectedIndex != nil {
                             Text(feedbackString)
+                                .fontWeight(.semibold)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 45)
+                            .padding(.leading, 50)
                         }
                     } else {
                         Text("?")
