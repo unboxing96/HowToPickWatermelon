@@ -21,6 +21,7 @@ struct GameView: View {
     @State private var totalTime: CGFloat = 20 // 총 시간을 설정합니다.
     @State private var remainingTime: CGFloat = 4 // 남은 시간을 설정합니다.
     @State private var isButtonDisabled: Bool = true
+    @State private var feedbackString: String = ""
     
     var body: some View {
         VStack(spacing: 0) {
@@ -31,7 +32,7 @@ struct GameView: View {
                 WatermelonBackgroundView()
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    FeedbackView(answer: $answer, watermelonViews: watermelonGameViews, selectedIndex: currentIndex)
+                    FeedbackView(answer: $answer, feedbackString: feedbackString, watermelonViews: watermelonGameViews, selectedIndex: currentIndex)
                         .frame(width: feedbackViewWidth)
                         .padding(.top, 20)
                         .border(.red)
@@ -104,6 +105,8 @@ struct GameView: View {
         answer = isGood && trial == .good ? .correct
         : !isGood && trial == .bad ? .correct
         : .wrong
+        
+        feedbackString = watermelonGameViews[currentIndex].watermelon.feedbackText
     }
     
     private func generateFeedback() {

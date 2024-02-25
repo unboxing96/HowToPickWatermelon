@@ -17,6 +17,7 @@ struct TutorialView: View {
     @State private var answer: Answer = .undefined
     @State private var feedbackViewWidth: CGFloat = .infinity
     @State private var showAnswerResult = false
+    @State private var feedbackString: String = ""
     
     private let gridItems = [
         GridItem(.flexible(minimum: 0), spacing: 0),
@@ -39,7 +40,7 @@ struct TutorialView: View {
                     TopicView(page: page)
                         .padding(.bottom)
                     
-                    FeedbackView(answer: $answer, watermelonViews: watermelonViews, selectedIndex: selectedWatermelonIndex)
+                    FeedbackView(answer: $answer, feedbackString: feedbackString, watermelonViews: watermelonViews, selectedIndex: selectedWatermelonIndex)
                         .frame(width: feedbackViewWidth)
                         .padding(.vertical)
                         .border(.green, width: 3)
@@ -111,6 +112,7 @@ struct TutorialView: View {
         switch answer {
         case .correct:
             withAnimation {
+                feedbackString = watermelonViews[selectedWatermelonIndex ?? 0].watermelon.feedbackText
                 page = page.navigateToNextPage(with: page)
             }
         default: // .wrong
@@ -118,6 +120,7 @@ struct TutorialView: View {
             watermelonViews[selectedWatermelonIndex ?? 0]
                 .watermelon.isDelicious() == true ? .correct : .wrong
             feedbackViewWidth = 0.0
+            feedbackString = watermelonViews[selectedWatermelonIndex ?? 0].watermelon.feedbackText
             withAnimation(.snappy(duration: 0.4, extraBounce: 0.1)) {
                 feedbackViewWidth = .infinity
             }

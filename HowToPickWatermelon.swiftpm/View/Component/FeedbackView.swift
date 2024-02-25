@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FeedbackView: View {
     @Binding var answer: Answer
+    var feedbackString: String
     var watermelonViews: [WatermelonSceneView]
     var selectedIndex: Int?
     
@@ -25,9 +26,7 @@ struct FeedbackView: View {
                 .overlay {
                     if answer != .undefined {
                         if let selectedIndex {
-                            Text(watermelonViews[selectedIndex]
-                                .watermelon
-                                .feedbackText)
+                            Text(feedbackString)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 45)
                         }
@@ -60,5 +59,5 @@ struct FeedbackView: View {
 }
 
 #Preview {
-    FeedbackView(answer: .constant(.undefined), watermelonViews: [])
+    FeedbackView(answer: .constant(.undefined), feedbackString: "feedback", watermelonViews: [])
 }

@@ -107,19 +107,19 @@ let watermelonData: [Watermelon] = [
         imgBodyName: "stipeNarrow2",
         imgStemName: "stemFresh1",
         taste: .stemFresh,
-        feedbackText: "A watermelon with a green, fresh-looking stem might not be ripe."
+        feedbackText: "A watermelon with a fresh-looking stem might not be ripe."
     ),
     Watermelon(
         imgBodyName: "stipeNarrow1",
         imgStemName: "stemFresh2",
         taste: .stemFresh,
-        feedbackText: "Avoid watermelons with vibrant green stems; they're likely underripe."
+        feedbackText: "Avoid watermelons with green stems; they're likely underripe."
     ),
     Watermelon(
         imgBodyName: "stipeNarrow2",
         imgStemName: "stemFresh3",
         taste: .stemFresh,
-        feedbackText: "If the stem is too green and looks fresh, the watermelon might be underripe."
+        feedbackText: "If the stem is too fresh, the watermelon might be underripe."
     ),
     
     // MARK: - Spot
@@ -133,7 +133,7 @@ let watermelonData: [Watermelon] = [
         imgBodyName: "spotOrange2",
         imgStemName: "stemDried1",
         taste: .spotOrange,
-        feedbackText: "Sweet watermelons tend to have a large, creamy orange spot where they rested on the ground."
+        feedbackText: "Sweet watermelons have a orange spot where they rested on the ground."
     ),
     Watermelon(
         imgBodyName: "spotOrange1",
