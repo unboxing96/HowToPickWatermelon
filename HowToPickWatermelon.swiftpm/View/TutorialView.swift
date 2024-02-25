@@ -166,7 +166,7 @@ struct TutorialView: View {
     }
     
     @ViewBuilder
-    func createButtonView(answer: Answer, page: Page, evaluateStageAnswer: @escaping () -> Void, selectedWatermelonIndex: Int?) -> some View {
+    private func createButtonView(answer: Answer, page: Page, evaluateStageAnswer: @escaping () -> Void, selectedWatermelonIndex: Int?) -> some View {
         if answer == .correct && page.rawValue != 4 {
             Button(action: {
                 withAnimation {

@@ -20,6 +20,7 @@ struct GameView: View {
     @State private var hasOnAppearedBeenExecuted = false
     @State private var totalTime: CGFloat = 20 // 총 시간을 설정합니다.
     @State private var remainingTime: CGFloat = 20 // 남은 시간을 설정합니다.
+    @State private var isButtonDisabled: Bool = true
     
     var body: some View {
         VStack(spacing: 0) {
@@ -52,45 +53,20 @@ struct GameView: View {
             .padding(20)
             .animation(.easeInOut(duration: 1), value: currentIndex)
             
-            switch answer {
-            case .correct:
-                Button {
-                    score += 1
-                    moveToNextView()
-                } label: {
-                    ProgressButtonView(answer: $answer)
-                        .padding(.bottom, 30)
-                }
-            case .wrong:
-                ProgressButtonView(answer: $answer)
-                    .padding(.bottom, 30)
-            default: // .undefined
-                HStack(spacing: 20) {
-                    Button {
-                        evaluateAnswer(trial: .good)
-                        generateFeedback()
-                    } label: {
-                        GoodBadButtonView(text: "Good")
-                    }
-                    .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
-                    
-                    Button {
-                        evaluateAnswer(trial: .bad)
-                        generateFeedback()
-                    } label: {
-                        GoodBadButtonView(text: "Bad")
-                    }
-                    .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
-                }
-                .padding(.bottom, 30)
-            }
+            createButtonView()
         }
         .onAppear {
             print("onAppear !!!!")
-            setupWatermelonGameViews(for: page)
+            print("isButtonDisabled: \(isButtonDisabled)")
+            print("onAppear 222")
             if !hasOnAppearedBeenExecuted {
+                setupWatermelonGameViews(for: page)
                 startTimer()
                 hasOnAppearedBeenExecuted = true
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                self.isButtonDisabled = false
             }
         }
         .onChange(of: currentIndex) { newValue in
@@ -101,7 +77,7 @@ struct GameView: View {
                     viewUpdateKey = UUID()
                 }
                 answer = .undefined
-                feedbackViewWidth = 0.0
+                self.isButtonDisabled = true
             }
         }
         .id(viewUpdateKey) // 이 key를 사용하여 뷰 갱신 강제
@@ -155,7 +131,7 @@ struct GameView: View {
         }
     }
     
-    func startTimer() {
+    private func startTimer() {
         // 타이머 시작 로직
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             withAnimation(.linear(duration: 0.25)) {
@@ -166,6 +142,43 @@ struct GameView: View {
                     page = .score
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func createButtonView() -> some View {
+        switch answer {
+        case .correct, .wrong:
+            HStack {
+                Button {
+                    score += 1
+                    moveToNextView()
+                } label: {
+                    MoveToNextButtonView()
+                }
+            }
+            .padding(.bottom, 30)
+        default: // .undefined
+            HStack(spacing: 20) {
+                Button {
+                    evaluateAnswer(trial: .good)
+                    generateFeedback()
+                } label: {
+                    GoodBadButtonView(text: "Good")
+                }
+                .disabled(isButtonDisabled)
+                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
+                
+                Button {
+                    evaluateAnswer(trial: .bad)
+                    generateFeedback()
+                } label: {
+                    GoodBadButtonView(text: "Bad")
+                }
+                .disabled(isButtonDisabled)
+                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
+            }
+            .padding(.bottom, 30)
         }
     }
 }
