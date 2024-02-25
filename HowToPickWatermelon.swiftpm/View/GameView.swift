@@ -18,10 +18,12 @@ struct GameView: View {
     @State private var feedbackViewWidth: CGFloat = .infinity
     @State private var progressValue: Double = 1.0
     @State private var hasOnAppearedBeenExecuted = false
+    @State private var totalTime: CGFloat = 20 // 총 시간을 설정합니다.
+    @State private var remainingTime: CGFloat = 20 // 남은 시간을 설정합니다.
     
     var body: some View {
         VStack(spacing: 0) {
-            TimerView()
+            TimerView(remainingTime: $remainingTime, totalTime: totalTime)
                 .padding(.top, 20)
             
             ZStack {
@@ -87,15 +89,17 @@ struct GameView: View {
             print("onAppear !!!!")
             setupWatermelonGameViews(for: page)
             if !hasOnAppearedBeenExecuted {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 100.0) {
-                    page = .score
-                }
+                startTimer()
                 hasOnAppearedBeenExecuted = true
             }
         }
         .onChange(of: currentIndex) { newValue in
             withAnimation {
-                viewUpdateKey = UUID()
+                var transaction = Transaction()
+                transaction.disablesAnimations = true
+                withTransaction(transaction) {
+                    viewUpdateKey = UUID()
+                }
                 answer = .undefined
                 feedbackViewWidth = 0.0
             }
@@ -148,6 +152,20 @@ struct GameView: View {
         feedbackViewWidth = 0.0
         withAnimation(.snappy(duration: 0.4, extraBounce: 0.1)) {
             feedbackViewWidth = .infinity
+        }
+    }
+    
+    func startTimer() {
+        // 타이머 시작 로직
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            withAnimation(.linear(duration: 0.25)) {
+                if self.remainingTime > 0 {
+                    self.remainingTime -= 0.25
+                    self.startTimer()
+                } else {
+                    page = .score
+                }
+            }
         }
     }
 }

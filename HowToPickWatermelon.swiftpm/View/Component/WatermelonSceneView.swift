@@ -160,15 +160,14 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         
         @objc func handleTap(_ gesture: UITapGestureRecognizer) {
 
-            // 사운드 재생
-            guard let url = Bundle.main.url(forResource: "testSoundTrain", withExtension: "mp3") else { return }
-            
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch (let err) {
-                print(err.localizedDescription)
-            }
+//            guard let url = Bundle.main.url(forResource: "testSoundTrain", withExtension: "mp3") else { return }
+//            
+//            do {
+//                audioPlayer = try AVAudioPlayer(contentsOf: url)
+//                audioPlayer?.play()
+//            } catch (let err) {
+//                print(err.localizedDescription)
+//            }
 
             // 햅틱 피드백 추가
             let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
