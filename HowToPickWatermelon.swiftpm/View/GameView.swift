@@ -159,7 +159,7 @@ struct GameView: View {
                     evaluateAnswer(trial: .good)
                     generateFeedback()
                 } label: {
-                    GoodBadButtonView(text: "Good")
+                    GoodBadButtonView(text: "Sweet")
                 }
                 .disabled(isButtonDisabled)
                 .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
@@ -168,7 +168,7 @@ struct GameView: View {
                     evaluateAnswer(trial: .bad)
                     generateFeedback()
                 } label: {
-                    GoodBadButtonView(text: "Bad")
+                    GoodBadButtonView(text: "Bland")
                 }
                 .disabled(isButtonDisabled)
                 .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))

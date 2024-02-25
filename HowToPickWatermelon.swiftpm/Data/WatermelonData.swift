@@ -7,6 +7,22 @@
 
 import Foundation
 
+// stripeNarrow[1...3]
+// stripeWide[1...3]
+// + stripeInsideOut
+
+// stemDried[1...2]
+// stemFresh[1...2]
+// + stemPink
+
+// spotOrange[1...3]
+// spotWhite[1...3]
+// + spotSnowman
+
+// soundClear[1...2] + Haptic[1...2]
+// soundHeavy[1...2] + Haptic[1...2]
+// soundDuck[1]
+
 let watermelonData: [Watermelon] = [
     // MARK: - Stripe
     Watermelon(
@@ -117,7 +133,7 @@ let watermelonData: [Watermelon] = [
     ),
     Watermelon(
         imgBodyName: "stipeNarrow2",
-        imgStemName: "stemFresh3",
+        imgStemName: "stemFresh2",
         taste: .stemFresh,
         feedbackText: "If the stem is too fresh, the watermelon might be underripe."
     ),
@@ -136,7 +152,7 @@ let watermelonData: [Watermelon] = [
         feedbackText: "Sweet watermelons have a orange spot where they rested on the ground."
     ),
     Watermelon(
-        imgBodyName: "spotOrange1",
+        imgBodyName: "spotOrange3",
         imgStemName: "stemDried1",
         taste: .spotOrange,
         feedbackText: "Golden spots whisper tales of sugar-filled bites."

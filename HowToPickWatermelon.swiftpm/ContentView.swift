@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var page: Page = .home
     @State private var score: Int = 0
+    @State private var showSplash = true
     
     var body: some View {
         ZStack {
@@ -20,6 +21,10 @@ struct ContentView: View {
                 case .score:
                     ScoreView(page: $page, score: $score)
                 }
+            }
+            
+            if showSplash {
+                SplashView(show: $showSplash)
             }
         }
     }
