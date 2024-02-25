@@ -21,13 +21,15 @@ struct TopicView: View {
                         .fontWeight(.bold)
                         .foregroundStyle(.gray)
                         .opacity(0.8)
-                    HStack(spacing: 0) {
+                    HStack(alignment: .bottom, spacing: 0) {
                         Text("Pick the sweetest ")
-                            .font(.system(size: 22))
+                            .font(.system(size: 21))
                             .fontWeight(.semibold)
+                            .foregroundStyle(.black)
                         Text(page.tutorialContent.title)
                             .font(.system(size: 24))
                              .fontWeight(.bold)
+                             .foregroundStyle(.black)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)

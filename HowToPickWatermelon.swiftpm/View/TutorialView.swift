@@ -77,7 +77,6 @@ struct TutorialView: View {
             withAnimation {
                 setupWatermelonViews(for: newValue)
                 viewUpdateKey = UUID()
-                currentIndex = 0
                 answer = .undefined
                 selectedWatermelonIndex = nil
             }
@@ -98,16 +97,16 @@ struct TutorialView: View {
         let selectedWatermelons = filteredWatermelons.count > 4 ? Array(filteredWatermelons.shuffled().prefix(4)) : filteredWatermelons
 
         // 선택된 수박 데이터를 기반으로 watermelonViews 업데이트
-        watermelonViews = selectedWatermelons.map { WatermelonSceneView(watermelon: $0) }
+        watermelonViews = selectedWatermelons.map { WatermelonSceneView(watermelon: $0, page: page) }
     }
 
     
-    private func offsetForIndex(_ index: Int) -> CGFloat {
-        let viewWidth = UIScreen.main.bounds.width
-        let currentIndexOffset = CGFloat(currentIndex) * viewWidth
-        let indexOffset = CGFloat(index) * viewWidth
-        return indexOffset - currentIndexOffset
-    }
+//    private func offsetForIndex(_ index: Int) -> CGFloat {
+//        let viewWidth = UIScreen.main.bounds.width
+//        let currentIndexOffset = CGFloat(currentIndex) * viewWidth
+//        let indexOffset = CGFloat(index) * viewWidth
+//        return indexOffset - currentIndexOffset
+//    }
     
     private func evaluateStageAnswer() {
         switch answer {
@@ -151,7 +150,7 @@ struct TutorialView: View {
                     UserDefaults.standard.set(true, forKey: "tutorialCompleted")
                 }
             }) {
-                MoveToNextButtonView(text: "Move To The Game")
+                MoveToNextButtonView(text: "Let's Play The Game")
                     .padding(.vertical, 30)
             }
             .transition(.opacity)
@@ -167,20 +166,22 @@ struct TutorialView: View {
     
     func createLazyVGridView(watermelonViews: [WatermelonSceneView], selectedWatermelonIndex: Int?, showAnswerResult: Bool) -> some View {
         LazyVGrid(columns: gridItems, spacing: 10) {
-            ForEach(0..<watermelonViews.count, id: \.self) { index in
+            ForEach(watermelonViews.indices, id: \.self) { index in
                 watermelonViews[index]
                     .frame(width: 158, height: 158)
-                    .clipShape(.rect(cornerRadius: 10))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay(
                         OverlayView(answer: $answer, selectedIndex: selectedWatermelonIndex, index: index, showAnswerResult: showAnswerResult)
                     )
                     .onTapGesture {
                         self.showAnswerResult = false
                         self.selectedWatermelonIndex = index
+                        print("Selected Watermelon Index: \(index), Taste: \(watermelonViews[index].watermelon.taste)")
                     }
             }
         }
     }
+
 }
 
 #Preview {

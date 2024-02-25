@@ -35,7 +35,7 @@ let watermelonData: [Watermelon] = [
         imgBodyName: "stripeNarrow2",
         imgStemName: "stemDried1",
         taste: .stripeNarrow,
-        feedbackText: "Stripes that hug each other tightly predict a super sweet watermelon."
+        feedbackText: "Stripes that hug each other tightly predict a sweet watermelon."
     ),
     Watermelon(
         imgBodyName: "stripeNarrow3",
@@ -59,7 +59,7 @@ let watermelonData: [Watermelon] = [
         imgBodyName: "stripeWide3",
         imgStemName: "stemDried1",
         taste: .stripeWide,
-        feedbackText: "If the stripes are far apart, the watermelons might not taste sweet."
+        feedbackText: "If the stripes are far apart, the watermelons taste unsweet."
     ),
     
     // MARK: - Sound
@@ -79,13 +79,13 @@ let watermelonData: [Watermelon] = [
         imgBodyName: "stripeNarrow3",
         imgStemName: "stemDried1",
         taste: .soundClear,
-        feedbackText: "The sound of sweetness is high-pitched and distinct."
+        feedbackText: "The sound of sweetness is distinct."
     ),
     Watermelon(
         imgBodyName: "stripeNarrow1",
         imgStemName: "stemDried2",
         taste: .soundHeavy,
-        feedbackText: "A dull sound from a watermelon can mean it's not ripe."
+        feedbackText: "A small sound from a watermelon can mean it's not ripe."
     ),
     Watermelon(
         imgBodyName: "stripeNarrow2",

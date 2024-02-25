@@ -10,6 +10,7 @@ import SceneKit
 
 struct HomeView: View {
     @Binding var page: Page
+    @State private var showSwipeIndicator = true
     
     var body: some View {
         VStack(spacing: 0) {
@@ -20,7 +21,7 @@ struct HomeView: View {
                 imgStemName: "stemTextureDried1",
                 taste: .stemDried,
                 feedbackText: ""
-            ))
+            ), page: page)
             .frame(width: 330, height: 450)
             
             HomeButtonView(page: $page, pageToGo: .tutorialStripe)

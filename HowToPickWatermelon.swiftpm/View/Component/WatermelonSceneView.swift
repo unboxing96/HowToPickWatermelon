@@ -12,6 +12,7 @@ import AVFoundation
 
 struct WatermelonSceneView: UIViewRepresentable, Identifiable {
     let watermelon: Watermelon
+    let page: Page
     let id = UUID()
     
     func makeUIView(context: Context) -> SCNView {
@@ -58,19 +59,20 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
     private func addGestureRecognizers(to view: SCNView, context: Context) {
         let coordinator = context.coordinator
         
-        let pinchGesture = UIPinchGestureRecognizer(target: coordinator, action: #selector(coordinator.handlePinch(_:)))
-        view.addGestureRecognizer(pinchGesture)
+//        let pinchGesture = UIPinchGestureRecognizer(target: coordinator, action: #selector(coordinator.handlePinch(_:)))
+//        view.addGestureRecognizer(pinchGesture)
         
-        let tapGesture = UITapGestureRecognizer(target: coordinator, action: #selector(coordinator.handleTap(_:)))
-        view.addGestureRecognizer(tapGesture)
+        if page == .tutorialSound || watermelon.taste == .soundClear || watermelon.taste == .soundHeavy {
+            let tapGesture = UITapGestureRecognizer(target: coordinator, action: #selector(coordinator.handleTap(_:)))
+            view.addGestureRecognizer(tapGesture)
+        }
         
-        // 기존 회전 제스처 대신 Pan 제스처 추가
         let panGesture = UIPanGestureRecognizer(target: coordinator, action: #selector(coordinator.handlePan(_:)))
         view.addGestureRecognizer(panGesture)
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator()
+        Coordinator(watermelon: self.watermelon)
     }
     
     private func createStemNode() -> SCNNode {
@@ -124,9 +126,14 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
     }
     
     class Coordinator: NSObject {
+        var watermelon: Watermelon
         var audioPlayer: AVAudioPlayer?
         var initialScale: CGFloat = 0.5
         var initialPanLocation: CGPoint = .zero // 초기 팬 위치 저장
+        
+        init(watermelon: Watermelon) {
+            self.watermelon = watermelon
+        }
         
         @objc func handlePinch(_ gesture: UIPinchGestureRecognizer) {
             guard let sceneView = gesture.view as? SCNView else { return }
@@ -166,9 +173,16 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
 //            } catch (let err) {
 //                print(err.localizedDescription)
 //            }
-
-            // 햅틱 피드백 추가
-            let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+            print("Current watermelon taste: \(watermelon.taste)")
+            
+            let feedbackStyle: UIImpactFeedbackGenerator.FeedbackStyle
+            switch watermelon.taste {
+            case .soundClear:
+                feedbackStyle = .heavy
+            default:
+                feedbackStyle = .light
+            }
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: feedbackStyle)
             feedbackGenerator.prepare()
             feedbackGenerator.impactOccurred()
         }
@@ -181,17 +195,14 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
             SCNTransaction.animationDuration = 0.5
             
             if gesture.state == .began {
-                initialPanLocation = gesture.location(in: sceneView) // 초기 위치 저장
+                initialPanLocation = gesture.location(in: sceneView)
             } else if gesture.state == .changed {
-                // 팬 이동량에 따라 노드 회전
-                let xRotation = Float(translation.y) / 100.0 // 상하 드래그 -> x축 회전
-                let yRotation = Float(translation.x) / 100.0 // 좌우 드래그 -> y축 회전
+                let xRotation = Float(translation.y) / 100.0
+                let yRotation = Float(translation.x) / 100.0
                 
-                // 현재 노드의 회전값에 더해줍니다.
                 watermelonNode.eulerAngles.x += xRotation
-                watermelonNode.eulerAngles.y += yRotation // 드래그 방향과 회전 방향 조정
+                watermelonNode.eulerAngles.y += yRotation
                 
-                // 제스처의 translation을 리셋하여 연속적인 회전을 가능하게 합니다.
                 gesture.setTranslation(.zero, in: sceneView)
             }
         }

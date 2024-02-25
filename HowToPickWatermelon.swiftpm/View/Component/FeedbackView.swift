@@ -27,6 +27,7 @@ struct FeedbackView: View {
                     if answer != .undefined {
                         if selectedIndex != nil {
                             Text(feedbackString)
+                                .foregroundStyle(.black)
                                 .fontWeight(.semibold)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 40)

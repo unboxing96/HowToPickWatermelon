@@ -80,7 +80,7 @@ struct GameView: View {
     
     private func setupWatermelonGameViews(for page: Page) {
         let selectedWatermelons = watermelonData.count >= 20 ? Array(watermelonData.shuffled().prefix(20)) : Array(watermelonData.shuffled())
-        watermelonGameViews = selectedWatermelons.map { WatermelonSceneView(watermelon: $0) }
+        watermelonGameViews = selectedWatermelons.map { WatermelonSceneView(watermelon: $0, page: page) }
     }
     
     private func offsetForIndex(_ index: Int) -> CGFloat {
