@@ -16,8 +16,11 @@ struct HomeView: View {
             HomeTitleView()
             
             WatermelonSceneView(watermelon: Watermelon(
-                imgName: "wv1",
-                taste: .stemSmall
+                imgBodyName: "wv1",
+                imgStemName: "stemTextureDried1",
+                taste: .stemSmall,
+                feedbackTextForWrong: "This is Too Sweet",
+                feedbackTextForCorrect: "This is Too Sweet"
             ))
             .frame(width: 330, height: 450)
             
@@ -25,7 +28,7 @@ struct HomeView: View {
                 .padding(.bottom)
             
             HomeButtonView(page: $page, pageToGo: .game)
-                .padding(.bottom, 35)
+                .padding(.bottom, 60)
         }
     }
 }

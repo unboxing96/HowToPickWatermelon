@@ -13,21 +13,22 @@ struct ScoreView: View {
     
     var body: some View {
         VStack {
-            Text("Score: \(score)")
+            HighScoreTitleView()
+                .border(.red)
             
-            Button {
-                score = 0
-                page = .game
-            } label: {
-                Text("Retry")
-            }
+            ScoreTitleView(score: $score)
+                .padding(.vertical, 30)
             
-            Button {
-                score = 0
-                page = .home
-            } label: {
-                Text("Go to Home")
-            }
+            ScoreButtonView(page: $page, pageToGo: .game)
+                .padding(.bottom)
+                .padding(.top, 80)
+            
+            ScoreButtonView(page: $page, pageToGo: .home)
+                .padding(.bottom)
+        }
+        .onDisappear {
+            print("ScoreView onDisappear !!!")
+            score = 0
         }
     }
 }

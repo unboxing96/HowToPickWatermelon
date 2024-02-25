@@ -9,11 +9,11 @@ import Foundation
 import SceneKit
 
 struct Watermelon {
-    let imgName: String
+    let imgBodyName: String
+    let imgStemName: String
     let taste: Taste
-    let interaction: Bool = false
-    let feedbackTextForWrong: String = "Wrong"
-    let feedbackTextForCorrect: String = "Correct"
+    let feedbackTextForWrong: String
+    let feedbackTextForCorrect: String
 }
 
 extension Watermelon {

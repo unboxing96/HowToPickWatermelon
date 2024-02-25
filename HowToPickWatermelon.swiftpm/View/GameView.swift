@@ -18,8 +18,8 @@ struct GameView: View {
     @State private var feedbackViewWidth: CGFloat = .infinity
     @State private var progressValue: Double = 1.0
     @State private var hasOnAppearedBeenExecuted = false
-    @State private var totalTime: CGFloat = 200 // 총 시간을 설정합니다.
-    @State private var remainingTime: CGFloat = 200 // 남은 시간을 설정합니다.
+    @State private var totalTime: CGFloat = 20 // 총 시간을 설정합니다.
+    @State private var remainingTime: CGFloat = 4 // 남은 시간을 설정합니다.
     @State private var isButtonDisabled: Bool = true
     
     var body: some View {
@@ -54,6 +54,7 @@ struct GameView: View {
             .animation(.easeInOut(duration: 1), value: currentIndex)
             
             createButtonView()
+                .padding(.bottom, 30)
         }
         .onAppear {
             if !hasOnAppearedBeenExecuted {
@@ -83,14 +84,11 @@ struct GameView: View {
     private func setupWatermelonGameViews(for page: Page) {
         let imageNames = ["wv1", "wv2", "wv3", "wc1", "wc2"]
         
-        for _ in 1...20 {
+        for i in 1...20 {
             let imageName = imageNames.randomElement()!
             let taste = Taste.allCases.randomElement()!
             watermelonGameViews.append(
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: imageName,
-                    taste: taste)
-                )
+                WatermelonSceneView(watermelon: watermelonData[i])
             )
         }
     }
@@ -130,6 +128,7 @@ struct GameView: View {
                     self.remainingTime -= 0.25
                     self.startTimer()
                 } else {
+                    saveHighScore()
                     page = .score
                 }
             }
@@ -139,16 +138,25 @@ struct GameView: View {
     @ViewBuilder
     private func createButtonView() -> some View {
         switch answer {
-        case .correct, .wrong:
+        case .correct:
             HStack {
                 Button {
+                    print("correct !!!!")
                     score += 1
                     moveToNextView()
                 } label: {
                     MoveToNextButtonView(text: "Move To Next")
                 }
             }
-            .padding(.bottom, 30)
+        case .wrong:
+            HStack {
+                Button {
+                    print("wrong !!!!")
+                    moveToNextView()
+                } label: {
+                    MoveToNextButtonView(text: "Move To Next")
+                }
+            }
         default: // .undefined
             HStack(spacing: 20) {
                 Button {
@@ -169,7 +177,13 @@ struct GameView: View {
                 .disabled(isButtonDisabled)
                 .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
             }
-            .padding(.bottom, 30)
+        }
+    }
+    
+    private func saveHighScore() {
+        let highScore = UserDefaults.standard.integer(forKey: "highScore")
+        if score > highScore {
+            UserDefaults.standard.set(score, forKey: "highScore")
         }
     }
 }

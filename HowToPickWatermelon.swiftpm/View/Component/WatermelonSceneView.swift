@@ -18,10 +18,8 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         let sceneView = SCNView()
         sceneView.scene = createWatermelonScene()
         sceneView.allowsCameraControl = false // camera control disabled
-        
-//        if watermelon.interaction == true {
-            addGestureRecognizers(to: sceneView, context: context)
-//        }
+
+        addGestureRecognizers(to: sceneView, context: context)
         
         return sceneView
     }
@@ -34,7 +32,7 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
         
         let watermelonGeometry = SCNSphere(radius: 1.0)
         let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: watermelon.imgName)
+        material.diffuse.contents = UIImage(named: watermelon.imgBodyName)
         watermelonGeometry.materials = [material]
         
         let watermelonNode = SCNNode(geometry: watermelonGeometry)

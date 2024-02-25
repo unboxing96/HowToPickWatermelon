@@ -22,7 +22,7 @@ struct HomeButtonView: View {
             }
         } label: {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(pageToGo == .game && !isTutorialCompleted ? .gray : .blue)
+                .foregroundStyle(pageToGo == .game && !isTutorialCompleted ? .gray : .green)
                 .opacity(0.5)
                 .frame(width: 250, height: 65)
                 .overlay {
@@ -32,7 +32,7 @@ struct HomeButtonView: View {
                         .fontWeight(.bold)
                 }
         }
-        .disabled(pageToGo == .game && !isTutorialCompleted)
+//        .disabled(pageToGo == .game && !isTutorialCompleted)
     }
 }
 

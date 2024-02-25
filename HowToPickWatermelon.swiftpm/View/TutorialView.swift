@@ -84,62 +84,21 @@ struct TutorialView: View {
     }
     
     private func setupWatermelonViews(for page: Page) {
-        switch page {
-        case .tutorialStripe:
-            watermelonViews = [
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "wv1",
-                    taste: .stripeWide)),
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "wv1",
-                    taste: .stripeNarrow)),
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "wv1",
-                    taste: .stripeWide)),
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "wv1",
-                    taste: .stripeWide))
-            ]
-        case .tutorialSound:
-            watermelonViews = [
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp0",
-                    taste: .soundHeavy)),
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp2",
-                    taste: .soundHeavy)),
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp2",
-                    taste: .soundClear))
-            ]
-        case .tutorialStem:
-            watermelonViews = [
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp2",
-                    taste: .stemLarge)),
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp2",
-                    taste: .stemSmall)),
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp2",
-                    taste: .stemLarge))
-            ]
-        case .tutorialSpot:
-            watermelonViews = [
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp0",
-                    taste: .spotOrange)),
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp2",
-                    taste: .spotWhite)),
-                WatermelonSceneView(watermelon: Watermelon(
-                    imgName: "watermelonTmp2",
-                    taste: .spotWhite))
-            ]
-        default:
-            break
+        // 현재 페이지에 해당하는 taste 조건 가져오기
+        let tasteCriteria = page.tutorialContent.taste
+
+        // 조건에 맞는 수박 데이터 필터링
+        let filteredWatermelons = watermelonData.filter { watermelon in
+            tasteCriteria.contains(watermelon.taste)
         }
+
+        // 필터링된 결과에서 랜덤으로 4개 선택 (4개 미만인 경우 모든 항목 사용)
+        let selectedWatermelons = filteredWatermelons.count > 4 ? Array(filteredWatermelons.shuffled().prefix(4)) : filteredWatermelons
+
+        // 선택된 수박 데이터를 기반으로 watermelonViews 업데이트
+        watermelonViews = selectedWatermelons.map { WatermelonSceneView(watermelon: $0) }
     }
+
     
     private func offsetForIndex(_ index: Int) -> CGFloat {
         let viewWidth = UIScreen.main.bounds.width
