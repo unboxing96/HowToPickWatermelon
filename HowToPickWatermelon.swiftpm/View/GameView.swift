@@ -18,8 +18,8 @@ struct GameView: View {
     @State private var feedbackViewWidth: CGFloat = .infinity
     @State private var progressValue: Double = 1.0
     @State private var hasOnAppearedBeenExecuted = false
-    @State private var totalTime: CGFloat = 20 // 총 시간을 설정합니다.
-    @State private var remainingTime: CGFloat = 20 // 남은 시간을 설정합니다.
+    @State private var totalTime: CGFloat = 200 // 총 시간을 설정합니다.
+    @State private var remainingTime: CGFloat = 200 // 남은 시간을 설정합니다.
     @State private var isButtonDisabled: Bool = true
     
     var body: some View {
@@ -34,7 +34,7 @@ struct GameView: View {
                     FeedbackView(answer: $answer, watermelonViews: watermelonGameViews, selectedIndex: currentIndex)
                         .frame(width: feedbackViewWidth)
                         .padding(.top, 20)
-                        .border(.orange)
+                        .border(.red)
                     
                     ZStack {
                         ForEach(0..<watermelonGameViews.count, id: \.self) { index in
@@ -48,7 +48,7 @@ struct GameView: View {
                     }
                 }
                 .padding(.horizontal)
-                .border(.orange)
+                .border(.blue)
             }
             .padding(20)
             .animation(.easeInOut(duration: 1), value: currentIndex)
@@ -56,9 +56,6 @@ struct GameView: View {
             createButtonView()
         }
         .onAppear {
-            print("onAppear !!!!")
-            print("isButtonDisabled: \(isButtonDisabled)")
-            print("onAppear 222")
             if !hasOnAppearedBeenExecuted {
                 setupWatermelonGameViews(for: page)
                 startTimer()
@@ -81,12 +78,6 @@ struct GameView: View {
             }
         }
         .id(viewUpdateKey) // 이 key를 사용하여 뷰 갱신 강제
-        .onDisappear {
-            print("onDiappear !!!!")
-            answer = .undefined
-            feedbackViewWidth = 0.0
-            hasOnAppearedBeenExecuted = false
-        }
     }
     
     private func setupWatermelonGameViews(for page: Page) {
