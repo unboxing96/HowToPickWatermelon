@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FeedbackView: View {
     @Binding var answer: Answer
+    var page: Page
     var feedbackString: String
     var watermelonViews: [WatermelonSceneView]
     var selectedIndex: Int?
@@ -25,21 +26,31 @@ struct FeedbackView: View {
                 .frame(height: 80)
                 .overlay {
                     if answer != .undefined {
-                        if selectedIndex != nil {
+                        if let index = selectedIndex, watermelonViews.indices.contains(index) {
+                            // 안전하게 인덱스 접근
                             Text(feedbackString)
                                 .foregroundStyle(.black)
                                 .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 40)
-                            .padding(.trailing, 10)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 40)
+                                .padding(.trailing, 10)
                         }
                     } else {
-                        Text("?")
-                            .foregroundStyle(Color.grayDark)
-                            .font(.system(size: 20))
-                            .fontWeight(.heavy)
+                        if page == .game, let index = selectedIndex, watermelonViews.indices.contains(index) {
+                            Text(watermelonViews[index].watermelon.taste.description())
+                                .foregroundStyle(Color.grayDark)
+                                .font(.system(size: 20))
+                                .fontWeight(.heavy)
+                        } else {
+                            // 기본값 또는 page가 .game이 아닌 경우
+                            Text("?")
+                                .foregroundStyle(Color.grayDark)
+                                .font(.system(size: 20))
+                                .fontWeight(.heavy)
+                        }
                     }
                 }
+
         }
     }
     
@@ -65,5 +76,5 @@ struct FeedbackView: View {
 }
 
 #Preview {
-    FeedbackView(answer: .constant(.undefined), feedbackString: "feedback", watermelonViews: [])
+    FeedbackView(answer: .constant(.undefined), page: .tutorialStripe, feedbackString: "feedback", watermelonViews: [])
 }

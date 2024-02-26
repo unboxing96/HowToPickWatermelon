@@ -41,7 +41,7 @@ struct TutorialView: View {
                     TopicView(page: page)
                         .padding(.bottom)
                     
-                    FeedbackView(answer: $answer, feedbackString: feedbackString, watermelonViews: watermelonViews, selectedIndex: selectedWatermelonIndex)
+                    FeedbackView(answer: $answer, page: page, feedbackString: feedbackString, watermelonViews: watermelonViews, selectedIndex: selectedWatermelonIndex)
                         .padding(.vertical)
                         .frame(minWidth: 0, maxWidth: feedbackViewWidth)
                         .border(.green, width: 3)

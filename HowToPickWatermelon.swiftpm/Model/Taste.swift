@@ -16,4 +16,17 @@ enum Taste: Int, CaseIterable {
     case soundHeavy
     case spotOrange
     case spotWhite
+    
+    func description() -> String {
+        switch self {
+        case .stripeNarrow, .stripeWide:
+            return "Stripes"
+        case .stemDried, .stemFresh:
+            return "Stem"
+        case .soundClear, .soundHeavy:
+            return "Sound"
+        case .spotOrange, .spotWhite:
+            return "Spot"
+        }
+    }
 }
