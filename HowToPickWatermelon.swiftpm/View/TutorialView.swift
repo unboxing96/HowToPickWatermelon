@@ -94,7 +94,13 @@ struct TutorialView: View {
         }
 
         // 필터링된 결과에서 랜덤으로 4개 선택 (4개 미만인 경우 모든 항목 사용)
-        let selectedWatermelons = filteredWatermelons.count > 4 ? Array(filteredWatermelons.shuffled().prefix(4)) : filteredWatermelons
+        var selectedWatermelons: [Watermelon]
+        switch page {
+        case .tutorialStripe:
+            selectedWatermelons = filteredWatermelons.count > 4 ? Array(filteredWatermelons.shuffled().prefix(4)) : filteredWatermelons
+        default:
+            selectedWatermelons = filteredWatermelons.count > 4 ? Array(filteredWatermelons.prefix(4)) : filteredWatermelons
+        }
 
         // 선택된 수박 데이터를 기반으로 watermelonViews 업데이트
         watermelonViews = selectedWatermelons.map { WatermelonSceneView(watermelon: $0, page: page) }
@@ -174,9 +180,11 @@ struct TutorialView: View {
                         OverlayView(answer: $answer, selectedIndex: selectedWatermelonIndex, index: index, showAnswerResult: showAnswerResult)
                     )
                     .onTapGesture {
+                        print("onTap")
                         self.showAnswerResult = false
                         self.selectedWatermelonIndex = index
-                        print("Selected Watermelon Index: \(index), Taste: \(watermelonViews[index].watermelon.taste)")
+                        let selectedTaste = self.watermelonViews[index].watermelon.taste
+                        print("Selected Watermelon Index: \(index), Taste: \(selectedTaste)")
                     }
             }
         }
