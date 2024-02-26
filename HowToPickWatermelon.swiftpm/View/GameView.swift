@@ -75,7 +75,7 @@ struct GameView: View {
                 self.isButtonDisabled = true
             }
         }
-        .id(viewUpdateKey) // 이 key를 사용하여 뷰 갱신 강제
+        .id(viewUpdateKey)
     }
     
     private func setupWatermelonGameViews(for page: Page) {

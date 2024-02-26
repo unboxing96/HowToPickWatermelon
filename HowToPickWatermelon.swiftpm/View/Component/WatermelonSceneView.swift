@@ -104,7 +104,7 @@ struct WatermelonSceneView: UIViewRepresentable, Identifiable {
             let endPoint = points[i]
             let height = CGFloat(length(simd_float3(endPoint) - simd_float3(startPoint))) // GLKVector3Distance 대체
             let cylinder = SCNCylinder(radius: max(0.02, CGFloat(i) * 0.004), height: height)
-            cylinder.firstMaterial?.diffuse.contents = UIImage(named: "stemTextureDried1.jpg")
+            cylinder.firstMaterial?.diffuse.contents = UIImage(named: watermelon.imgStemName)
 
             let cylinderNode = SCNNode(geometry: cylinder)
             cylinderNode.position = SCNVector3((startPoint.x + endPoint.x) / 2,

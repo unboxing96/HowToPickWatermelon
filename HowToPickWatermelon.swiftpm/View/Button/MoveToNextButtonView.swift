@@ -13,7 +13,7 @@ struct MoveToNextButtonView: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .fill(Color.buttonDarkInner)
-            .frame(width: 350, height: 70)
+            .frame(width: 340, height: 70)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.buttonDarkOuter, lineWidth: 2)

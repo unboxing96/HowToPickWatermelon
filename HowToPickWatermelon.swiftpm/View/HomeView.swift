@@ -18,8 +18,8 @@ struct HomeView: View {
             
             ZStack {
                 WatermelonSceneView(watermelon: Watermelon(
-                    imgBodyName: "wv1",
-                    imgStemName: "stemTextureDried1",
+                    imgBodyName: "stripeNarrow1",
+                    imgStemName: "stemDried2",
                     taste: .stemDried,
                     feedbackText: ""
                 ), page: page)
