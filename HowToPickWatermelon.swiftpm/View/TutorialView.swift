@@ -156,7 +156,7 @@ struct TutorialView: View {
             .transition(.opacity)
         } else {
             Button(action: evaluateStageAnswer) {
-                TutorialButtonView(text: "Confirm The Answer")
+                TutorialButtonView(text: "Pick A Sweet Watermelon")
                     .padding(.vertical, 30)
             }
             .disabled(selectedWatermelonIndex == nil)
