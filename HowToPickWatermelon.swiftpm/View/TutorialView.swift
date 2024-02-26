@@ -42,8 +42,8 @@ struct TutorialView: View {
                         .padding(.bottom)
                     
                     FeedbackView(answer: $answer, feedbackString: feedbackString, watermelonViews: watermelonViews, selectedIndex: selectedWatermelonIndex)
-                        .frame(width: feedbackViewWidth)
                         .padding(.vertical)
+                        .frame(minWidth: 0, maxWidth: feedbackViewWidth)
                         .border(.green, width: 3)
                     
                     createLazyVGridView(

@@ -23,9 +23,9 @@ struct ContentView: View {
                 }
             }
             
-//            if showSplash {
-//                SplashView(show: $showSplash)
-//            }
+            if showSplash {
+                SplashView(show: $showSplash)
+            }
         }
     }
 }
