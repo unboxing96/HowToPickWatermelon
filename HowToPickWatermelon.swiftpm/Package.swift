@@ -20,7 +20,7 @@ let package = Package(
             teamIdentifier: "8H4K6TKQBU",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .chatMessage),
+            appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.teal),
             supportedDeviceFamilies: [
                 .pad,
@@ -28,8 +28,6 @@ let package = Package(
             ],
             supportedInterfaceOrientations: [
                 .portrait,
-                .landscapeRight,
-                .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
             ]
         )

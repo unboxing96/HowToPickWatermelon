@@ -35,7 +35,6 @@ struct GameView: View {
                     FeedbackView(answer: $answer, page: page, feedbackString: feedbackString, watermelonViews: watermelonGameViews, selectedIndex: currentIndex)
                         .frame(minWidth: 0, maxWidth: feedbackViewWidth)
                         .padding(.top, 20)
-                        .border(.red)
                     
                     ZStack {
                         ForEach(0..<watermelonGameViews.count, id: \.self) { index in
@@ -44,12 +43,10 @@ struct GameView: View {
                                 .animation(.easeInOut(duration: 1), value: currentIndex)
                                 .padding(.top, 15)
                                 .padding(.bottom, 30)
-                                .border(.orange)
                         }
                     }
                 }
                 .padding(.horizontal)
-                .border(.blue)
             }
             .padding(20)
             .animation(.easeInOut(duration: 1), value: currentIndex)
@@ -57,6 +54,7 @@ struct GameView: View {
             createButtonView()
                 .padding(.bottom, 30)
         }
+        .frame(maxWidth: 400, maxHeight: 600)
         .onAppear {
             if !hasOnAppearedBeenExecuted {
                 setupWatermelonGameViews(for: page)

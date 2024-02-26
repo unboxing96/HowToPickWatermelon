@@ -39,7 +39,7 @@ let watermelonData: [Watermelon] = [
     ),
     Watermelon(
         imgBodyName: "stripeNarrow3",
-        imgStemName: "stemDried2",
+        imgStemName: "stemDried1",
         taste: .stripeNarrow,
         feedbackText: "The closer the stripes, the higher the sweetness level."
     ),
@@ -71,7 +71,7 @@ let watermelonData: [Watermelon] = [
     ),
     Watermelon(
         imgBodyName: "stripeNarrow2",
-        imgStemName: "stemDried2",
+        imgStemName: "stemDried1",
         taste: .soundClear,
         feedbackText: "The clearer the sound, the sweeter the watermelon."
     ),
@@ -83,7 +83,7 @@ let watermelonData: [Watermelon] = [
     ),
     Watermelon(
         imgBodyName: "stripeNarrow1",
-        imgStemName: "stemDried2",
+        imgStemName: "stemDried1",
         taste: .soundHeavy,
         feedbackText: "A small sound from a watermelon can mean it's not ripe."
     ),
@@ -95,27 +95,27 @@ let watermelonData: [Watermelon] = [
     ),
     Watermelon(
         imgBodyName: "stripeNarrow3",
-        imgStemName: "stemDried2",
+        imgStemName: "stemDried1",
         taste: .soundHeavy,
         feedbackText: "If the sound is muffled, the watermelon is likely not sweet."
     ),
     
     // MARK: - Stem
     Watermelon(
-        imgBodyName: "stripeNarrow1",
+        imgBodyName: "stripeNarrow4",
         imgStemName: "stemDried1",
         taste: .stemDried,
         feedbackText: "A dry stem indicates a ripe, sweet watermelon."
     ),
     Watermelon(
         imgBodyName: "stripeNarrow2",
-        imgStemName: "stemDried2",
+        imgStemName: "stemDried1",
         taste: .stemDried,
         feedbackText: "Choose watermelons with dried stems for guaranteed sweetness."
     ),
     Watermelon(
         imgBodyName: "stripeNarrow3",
-        imgStemName: "stemDried2",
+        imgStemName: "stemDried1",
         taste: .stemDried,
         feedbackText: "The drier the stem, the juicier the bite."
     ),
@@ -126,7 +126,7 @@ let watermelonData: [Watermelon] = [
         feedbackText: "A watermelon with a fresh -looking stem might not be ripe."
     ),
     Watermelon(
-        imgBodyName: "stripeNarrow1",
+        imgBodyName: "stripeNarrow4",
         imgStemName: "stemFresh2",
         taste: .stemFresh,
         feedbackText: "Avoid watermelons with green stems; they're likely underripe."
@@ -141,7 +141,7 @@ let watermelonData: [Watermelon] = [
     // MARK: - Spot
     Watermelon(
         imgBodyName: "spotOrange1",
-        imgStemName: "stemDried2",
+        imgStemName: "stemDried1",
         taste: .spotOrange,
         feedbackText: "Orange spots on watermelons indicate sweetness."
     ),
@@ -159,7 +159,7 @@ let watermelonData: [Watermelon] = [
     ),
     Watermelon(
         imgBodyName: "spotWhite1",
-        imgStemName: "stemDried2",
+        imgStemName: "stemDried1",
         taste: .spotWhite,
         feedbackText: "White spots on a watermelon suggest it might be bland."
     ),

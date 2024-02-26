@@ -44,7 +44,6 @@ struct TutorialView: View {
                     FeedbackView(answer: $answer, page: page, feedbackString: feedbackString, watermelonViews: watermelonViews, selectedIndex: selectedWatermelonIndex)
                         .padding(.vertical)
                         .frame(minWidth: 0, maxWidth: feedbackViewWidth)
-                        .border(.green, width: 3)
                     
                     createLazyVGridView(
                         watermelonViews: watermelonViews,
@@ -52,17 +51,14 @@ struct TutorialView: View {
                         showAnswerResult: showAnswerResult
                     )
                     .padding(.bottom, 20)
-                    .border(.red)
                     
                     Spacer()
                 }
                 .padding(.horizontal)
-                .border(.blue)
             }
             .padding(.horizontal)
             .padding(.top, 25)
             .padding(.bottom, 25)
-            .border(.orange)
             
             createButtonView(
                 answer: answer, page: page,
@@ -70,6 +66,7 @@ struct TutorialView: View {
                 selectedWatermelonIndex: selectedWatermelonIndex
             )
         }
+        .frame(maxWidth: 400, maxHeight: 600)
         .onAppear {
             setupWatermelonViews(for: page)
         }

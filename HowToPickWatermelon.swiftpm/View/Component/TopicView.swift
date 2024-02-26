@@ -36,7 +36,6 @@ struct TopicView: View {
                 }
             }
             .padding(.top, 10)
-            .border(.red)
     }
 }
 

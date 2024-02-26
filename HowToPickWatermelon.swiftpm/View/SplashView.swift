@@ -19,7 +19,7 @@ struct SplashView: View {
                 .ignoresSafeArea()
                 .opacity(opacity)
             
-            Image("stripeNarrow1") // 이미지 이름 "splashImage" 가정
+            Image("splash") // 이미지 이름 "splashImage" 가정
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 200, height: 200)
