@@ -17,7 +17,6 @@ Tutorial에서는 더 달콤하고 맛있는 수박을 선택하기 위한 4가�
 
 </br>
 </br>
-</br>
 
 ## 1. Development Environment ⚙️
 `iOS 17.0` `Playground 4.4.1`
@@ -28,15 +27,15 @@ Tutorial에서는 더 달콤하고 맛있는 수박을 선택하기 위한 4가�
 - 언어: `Swift`
 - 프레임워크: `SwiftUI` `UIKit`
 - 동시성: `GCD`
-- 3D 객체 생성: `SceneKit`
+- 3D 객체 생성: `SceneKit`
 
 </br>
 
 ## 3. 화면 구성
 |Tutorial|Game|
 |---|---|
-![tutorial_2x](https://github.com/unboxing96/WWDC24-SSC/assets/102353544/7001644a-1b9f-4aab-9b04-ad95ebaae2fe)
-![game_2x](https://github.com/unboxing96/WWDC24-SSC/assets/102353544/b0776336-cad1-4fe4-b4f8-7e471036e380)
+|![tutorial_2x](https://github.com/unboxing96/WWDC24-SSC/assets/102353544/7001644a-1b9f-4aab-9b04-ad95ebaae2fe)|
+![game_2x](https://github.com/unboxing96/WWDC24-SSC/assets/102353544/b0776336-cad1-4fe4-b4f8-7e471036e380)|
 
 </br>
 
