@@ -1,5 +1,15 @@
 # HowToPickWatermelon
-![watermelonReadme](https://github.com/unboxing96/WWDC24-SSC/assets/102353544/de241327-3fd0-4a87-94f6-aabbe36ba78a)
+![watermelonReadme_resized](https://github.com/unboxing96/WWDC24-SSC/assets/102353544/d5a53a4a-309a-4879-b6f3-5888d1f6bc6e)
+
+### 🎉 앱스토어 출시 완료
+출시 준비 중...
+
+</br>
+
+### 📈 앱스토어 관련 데이터
+출시 준비 중...
+
+</br>
 
 ### 🍉 맛있는 3D 수박 고르기 게임
 HowToPickWatermelon은 맛있는 수박 고르는 기준을 알려주는 iOS 앱입니다. </br>
@@ -51,6 +61,13 @@ Tutorial에서는 더 달콤하고 맛있는 수박을 선택하기 위한 4가�
   - 정답 개수를 기록 후 게임이 종료되면 유저에게 제공하고, 최고 기록인 경우 UserDefaults에 저장
 
 </br>
+
+## 5. 업데이트 내역
+출시 준비 중...
+
+</br>
+
+## 6. Folder Structure
 
 ```
 ├── ContentView.swift
