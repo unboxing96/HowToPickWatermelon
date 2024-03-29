@@ -1,5 +1,5 @@
 # HowToPickWatermelon
-![Group 256](https://github.com/unboxing96/WWDC24-SSC/assets/102353544/93990474-3259-4275-9eac-54dbdd4feb85)
+![Group 257](https://github.com/unboxing96/WWDC24-SSC/assets/102353544/1beebe5f-58e7-4fea-a84b-4ecd0648f8e3)
 
 ### 🎉 앱스토어 출시 완료
 출시 준비 중...
